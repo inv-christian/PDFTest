@@ -1,0 +1,671 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		026832B31CCEBA4E00BA34F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 026832B21CCEBA4E00BA34F3 /* main.m */; };
+		026832B61CCEBA4E00BA34F3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 026832B51CCEBA4E00BA34F3 /* AppDelegate.m */; };
+		026832B91CCEBA4E00BA34F3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 026832B81CCEBA4E00BA34F3 /* ViewController.m */; };
+		026832BC1CCEBA4E00BA34F3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 026832BA1CCEBA4E00BA34F3 /* Main.storyboard */; };
+		026832BE1CCEBA4E00BA34F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 026832BD1CCEBA4E00BA34F3 /* Assets.xcassets */; };
+		026832C11CCEBA4E00BA34F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 026832BF1CCEBA4E00BA34F3 /* LaunchScreen.storyboard */; };
+		026832CC1CCEBA4E00BA34F3 /* PDFTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 026832CB1CCEBA4E00BA34F3 /* PDFTestTests.m */; };
+		026832D71CCEBA4E00BA34F3 /* PDFTestUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 026832D61CCEBA4E00BA34F3 /* PDFTestUITests.m */; };
+		026832E51CCEFC8200BA34F3 /* floorplan.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 026832E41CCEFC8200BA34F3 /* floorplan.pdf */; };
+		026832E71CCF052300BA34F3 /* PDFView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 026832E61CCF052300BA34F3 /* PDFView.xib */; };
+		026832EA1CCF053A00BA34F3 /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026832E91CCF053A00BA34F3 /* PDFView.m */; };
+		B6F5A95B1CDAFD9C00A21D0F /* 101.0.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9551CDAFD9C00A21D0F /* 101.0.json */; settings = {ASSET_TAGS = (); }; };
+		B6F5A95C1CDAFD9C00A21D0F /* Floor Plan-First Floor.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9561CDAFD9C00A21D0F /* Floor Plan-First Floor.json */; settings = {ASSET_TAGS = (); }; };
+		B6F5A95D1CDAFD9C00A21D0F /* Floor Plan-Level 2.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9571CDAFD9C00A21D0F /* Floor Plan-Level 2.json */; settings = {ASSET_TAGS = (); }; };
+		B6F5A95E1CDAFD9C00A21D0F /* geomInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9581CDAFD9C00A21D0F /* geomInfo.json */; settings = {ASSET_TAGS = (); }; };
+		B6F5A95F1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9591CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf */; settings = {ASSET_TAGS = (); }; };
+		B6F5A9601CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A95A1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf */; settings = {ASSET_TAGS = (); }; };
+		B6F5A9621CDB054400A21D0F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F5A9611CDB054400A21D0F /* GLKit.framework */; };
+		B6F5A9651CDB24A300A21D0F /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9641CDB24A300A21D0F /* OverlayView.m */; settings = {ASSET_TAGS = (); }; };
+		B6F5A9671CDB2BA000A21D0F /* openctm in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9661CDB2BA000A21D0F /* openctm */; settings = {ASSET_TAGS = (); }; };
+		B6F5A96C1CDB35F100A21D0F /* CTMDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A96B1CDB35F100A21D0F /* CTMDecoder.mm */; settings = {ASSET_TAGS = (); }; };
+		B6F5A9991CDB3AC000A21D0F /* compressMG1.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9821CDB3AC000A21D0F /* compressMG1.c */; settings = {ASSET_TAGS = (); }; };
+		B6F5A99A1CDB3AC000A21D0F /* compressMG2.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9831CDB3AC000A21D0F /* compressMG2.c */; settings = {ASSET_TAGS = (); }; };
+		B6F5A99B1CDB3AC000A21D0F /* compressRAW.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9841CDB3AC000A21D0F /* compressRAW.c */; settings = {ASSET_TAGS = (); }; };
+		B6F5A99C1CDB3AC000A21D0F /* Alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9871CDB3AC000A21D0F /* Alloc.c */; settings = {ASSET_TAGS = (); }; };
+		B6F5A99D1CDB3AC000A21D0F /* LzFind.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9891CDB3AC000A21D0F /* LzFind.c */; settings = {ASSET_TAGS = (); }; };
+		B6F5A99E1CDB3AC000A21D0F /* LzmaDec.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A98C1CDB3AC000A21D0F /* LzmaDec.c */; settings = {ASSET_TAGS = (); }; };
+		B6F5A99F1CDB3AC000A21D0F /* LzmaEnc.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A98E1CDB3AC000A21D0F /* LzmaEnc.c */; settings = {ASSET_TAGS = (); }; };
+		B6F5A9A01CDB3AC000A21D0F /* LzmaLib.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9901CDB3AC000A21D0F /* LzmaLib.c */; settings = {ASSET_TAGS = (); }; };
+		B6F5A9A11CDB3AC000A21D0F /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9931CDB3AC000A21D0F /* readme.txt */; settings = {ASSET_TAGS = (); }; };
+		B6F5A9A21CDB3AC000A21D0F /* openctm.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9951CDB3AC000A21D0F /* openctm.c */; settings = {ASSET_TAGS = (); }; };
+		B6F5A9A31CDB3AC000A21D0F /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9981CDB3AC000A21D0F /* stream.c */; settings = {ASSET_TAGS = (); }; };
+		B6F5A9A61CDB419500A21D0F /* Element.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9A51CDB419500A21D0F /* Element.m */; settings = {ASSET_TAGS = (); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		026832C81CCEBA4E00BA34F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 026832A61CCEBA4E00BA34F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 026832AD1CCEBA4E00BA34F3;
+			remoteInfo = PDFTest;
+		};
+		026832D31CCEBA4E00BA34F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 026832A61CCEBA4E00BA34F3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 026832AD1CCEBA4E00BA34F3;
+			remoteInfo = PDFTest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		026832AE1CCEBA4E00BA34F3 /* PDFTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PDFTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		026832B21CCEBA4E00BA34F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		026832B41CCEBA4E00BA34F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		026832B51CCEBA4E00BA34F3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		026832B71CCEBA4E00BA34F3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		026832B81CCEBA4E00BA34F3 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		026832BB1CCEBA4E00BA34F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		026832BD1CCEBA4E00BA34F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		026832C01CCEBA4E00BA34F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		026832C21CCEBA4E00BA34F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		026832C71CCEBA4E00BA34F3 /* PDFTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PDFTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		026832CB1CCEBA4E00BA34F3 /* PDFTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDFTestTests.m; sourceTree = "<group>"; };
+		026832CD1CCEBA4E00BA34F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		026832D21CCEBA4E00BA34F3 /* PDFTestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PDFTestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		026832D61CCEBA4E00BA34F3 /* PDFTestUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PDFTestUITests.m; sourceTree = "<group>"; };
+		026832D81CCEBA4E00BA34F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		026832E41CCEFC8200BA34F3 /* floorplan.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = floorplan.pdf; sourceTree = "<group>"; };
+		026832E61CCF052300BA34F3 /* PDFView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFView.xib; sourceTree = "<group>"; };
+		026832E81CCF053A00BA34F3 /* PDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFView.h; sourceTree = "<group>"; };
+		026832E91CCF053A00BA34F3 /* PDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFView.m; sourceTree = "<group>"; };
+		B6F5A9551CDAFD9C00A21D0F /* 101.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 101.0.json; sourceTree = "<group>"; };
+		B6F5A9561CDAFD9C00A21D0F /* Floor Plan-First Floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Floor Plan-First Floor.json"; sourceTree = "<group>"; };
+		B6F5A9571CDAFD9C00A21D0F /* Floor Plan-Level 2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Floor Plan-Level 2.json"; sourceTree = "<group>"; };
+		B6F5A9581CDAFD9C00A21D0F /* geomInfo.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = geomInfo.json; sourceTree = "<group>"; };
+		B6F5A9591CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "SampleHouse - Floor Plan - First Floor.pdf"; sourceTree = "<group>"; };
+		B6F5A95A1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "SampleHouse - Floor Plan - Level 2.pdf"; sourceTree = "<group>"; };
+		B6F5A9611CDB054400A21D0F /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		B6F5A9631CDB22EA00A21D0F /* OverlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
+		B6F5A9641CDB24A300A21D0F /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
+		B6F5A9661CDB2BA000A21D0F /* openctm */ = {isa = PBXFileReference; lastKnownFileType = folder; name = openctm; path = /Users/invsg010/dev/test/PDFTest/PDFTest/openctm; sourceTree = "<absolute>"; };
+		B6F5A9681CDB2CBB00A21D0F /* CTMDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTMDecoder.h; sourceTree = "<group>"; };
+		B6F5A96B1CDB35F100A21D0F /* CTMDecoder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CTMDecoder.mm; sourceTree = "<group>"; };
+		B6F5A9821CDB3AC000A21D0F /* compressMG1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = compressMG1.c; sourceTree = "<group>"; };
+		B6F5A9831CDB3AC000A21D0F /* compressMG2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = compressMG2.c; sourceTree = "<group>"; };
+		B6F5A9841CDB3AC000A21D0F /* compressRAW.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = compressRAW.c; sourceTree = "<group>"; };
+		B6F5A9851CDB3AC000A21D0F /* internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = internal.h; sourceTree = "<group>"; };
+		B6F5A9871CDB3AC000A21D0F /* Alloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Alloc.c; sourceTree = "<group>"; };
+		B6F5A9881CDB3AC000A21D0F /* Alloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alloc.h; sourceTree = "<group>"; };
+		B6F5A9891CDB3AC000A21D0F /* LzFind.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzFind.c; sourceTree = "<group>"; };
+		B6F5A98A1CDB3AC000A21D0F /* LzFind.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzFind.h; sourceTree = "<group>"; };
+		B6F5A98B1CDB3AC000A21D0F /* LzHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzHash.h; sourceTree = "<group>"; };
+		B6F5A98C1CDB3AC000A21D0F /* LzmaDec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzmaDec.c; sourceTree = "<group>"; };
+		B6F5A98D1CDB3AC000A21D0F /* LzmaDec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzmaDec.h; sourceTree = "<group>"; };
+		B6F5A98E1CDB3AC000A21D0F /* LzmaEnc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzmaEnc.c; sourceTree = "<group>"; };
+		B6F5A98F1CDB3AC000A21D0F /* LzmaEnc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzmaEnc.h; sourceTree = "<group>"; };
+		B6F5A9901CDB3AC000A21D0F /* LzmaLib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = LzmaLib.c; sourceTree = "<group>"; };
+		B6F5A9911CDB3AC000A21D0F /* LzmaLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LzmaLib.h; sourceTree = "<group>"; };
+		B6F5A9921CDB3AC000A21D0F /* NameMangle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameMangle.h; sourceTree = "<group>"; };
+		B6F5A9931CDB3AC000A21D0F /* readme.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		B6F5A9941CDB3AC000A21D0F /* Types.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Types.h; sourceTree = "<group>"; };
+		B6F5A9951CDB3AC000A21D0F /* openctm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = openctm.c; sourceTree = "<group>"; };
+		B6F5A9961CDB3AC000A21D0F /* openctm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openctm.h; sourceTree = "<group>"; };
+		B6F5A9971CDB3AC000A21D0F /* openctmpp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openctmpp.h; sourceTree = "<group>"; };
+		B6F5A9981CDB3AC000A21D0F /* stream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stream.c; sourceTree = "<group>"; };
+		B6F5A9A41CDB411B00A21D0F /* Element.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Element.h; sourceTree = "<group>"; };
+		B6F5A9A51CDB419500A21D0F /* Element.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Element.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		026832AB1CCEBA4E00BA34F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6F5A9621CDB054400A21D0F /* GLKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		026832C41CCEBA4E00BA34F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		026832CF1CCEBA4E00BA34F3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		026832A51CCEBA4E00BA34F3 = {
+			isa = PBXGroup;
+			children = (
+				B6F5A9611CDB054400A21D0F /* GLKit.framework */,
+				026832B01CCEBA4E00BA34F3 /* PDFTest */,
+				026832CA1CCEBA4E00BA34F3 /* PDFTestTests */,
+				026832D51CCEBA4E00BA34F3 /* PDFTestUITests */,
+				026832AF1CCEBA4E00BA34F3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		026832AF1CCEBA4E00BA34F3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				026832AE1CCEBA4E00BA34F3 /* PDFTest.app */,
+				026832C71CCEBA4E00BA34F3 /* PDFTestTests.xctest */,
+				026832D21CCEBA4E00BA34F3 /* PDFTestUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		026832B01CCEBA4E00BA34F3 /* PDFTest */ = {
+			isa = PBXGroup;
+			children = (
+				B6F5A9811CDB3AC000A21D0F /* openctm */,
+				026832B41CCEBA4E00BA34F3 /* AppDelegate.h */,
+				026832B51CCEBA4E00BA34F3 /* AppDelegate.m */,
+				026832B71CCEBA4E00BA34F3 /* ViewController.h */,
+				026832B81CCEBA4E00BA34F3 /* ViewController.m */,
+				026832BA1CCEBA4E00BA34F3 /* Main.storyboard */,
+				026832BD1CCEBA4E00BA34F3 /* Assets.xcassets */,
+				026832BF1CCEBA4E00BA34F3 /* LaunchScreen.storyboard */,
+				026832C21CCEBA4E00BA34F3 /* Info.plist */,
+				026832B11CCEBA4E00BA34F3 /* Supporting Files */,
+				026832E61CCF052300BA34F3 /* PDFView.xib */,
+				026832E81CCF053A00BA34F3 /* PDFView.h */,
+				026832E91CCF053A00BA34F3 /* PDFView.m */,
+				B6F5A9631CDB22EA00A21D0F /* OverlayView.h */,
+				B6F5A9641CDB24A300A21D0F /* OverlayView.m */,
+				B6F5A9681CDB2CBB00A21D0F /* CTMDecoder.h */,
+				B6F5A96B1CDB35F100A21D0F /* CTMDecoder.mm */,
+				B6F5A9A41CDB411B00A21D0F /* Element.h */,
+				B6F5A9A51CDB419500A21D0F /* Element.m */,
+			);
+			path = PDFTest;
+			sourceTree = "<group>";
+		};
+		026832B11CCEBA4E00BA34F3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B6F5A9551CDAFD9C00A21D0F /* 101.0.json */,
+				B6F5A9561CDAFD9C00A21D0F /* Floor Plan-First Floor.json */,
+				B6F5A9571CDAFD9C00A21D0F /* Floor Plan-Level 2.json */,
+				B6F5A9581CDAFD9C00A21D0F /* geomInfo.json */,
+				B6F5A9591CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf */,
+				B6F5A95A1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf */,
+				026832E41CCEFC8200BA34F3 /* floorplan.pdf */,
+				026832B21CCEBA4E00BA34F3 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		026832CA1CCEBA4E00BA34F3 /* PDFTestTests */ = {
+			isa = PBXGroup;
+			children = (
+				026832CB1CCEBA4E00BA34F3 /* PDFTestTests.m */,
+				026832CD1CCEBA4E00BA34F3 /* Info.plist */,
+			);
+			path = PDFTestTests;
+			sourceTree = "<group>";
+		};
+		026832D51CCEBA4E00BA34F3 /* PDFTestUITests */ = {
+			isa = PBXGroup;
+			children = (
+				026832D61CCEBA4E00BA34F3 /* PDFTestUITests.m */,
+				026832D81CCEBA4E00BA34F3 /* Info.plist */,
+			);
+			path = PDFTestUITests;
+			sourceTree = "<group>";
+		};
+		B6F5A9811CDB3AC000A21D0F /* openctm */ = {
+			isa = PBXGroup;
+			children = (
+				B6F5A9821CDB3AC000A21D0F /* compressMG1.c */,
+				B6F5A9831CDB3AC000A21D0F /* compressMG2.c */,
+				B6F5A9841CDB3AC000A21D0F /* compressRAW.c */,
+				B6F5A9851CDB3AC000A21D0F /* internal.h */,
+				B6F5A9861CDB3AC000A21D0F /* liblzma */,
+				B6F5A9951CDB3AC000A21D0F /* openctm.c */,
+				B6F5A9961CDB3AC000A21D0F /* openctm.h */,
+				B6F5A9971CDB3AC000A21D0F /* openctmpp.h */,
+				B6F5A9981CDB3AC000A21D0F /* stream.c */,
+			);
+			path = openctm;
+			sourceTree = "<group>";
+		};
+		B6F5A9861CDB3AC000A21D0F /* liblzma */ = {
+			isa = PBXGroup;
+			children = (
+				B6F5A9871CDB3AC000A21D0F /* Alloc.c */,
+				B6F5A9881CDB3AC000A21D0F /* Alloc.h */,
+				B6F5A9891CDB3AC000A21D0F /* LzFind.c */,
+				B6F5A98A1CDB3AC000A21D0F /* LzFind.h */,
+				B6F5A98B1CDB3AC000A21D0F /* LzHash.h */,
+				B6F5A98C1CDB3AC000A21D0F /* LzmaDec.c */,
+				B6F5A98D1CDB3AC000A21D0F /* LzmaDec.h */,
+				B6F5A98E1CDB3AC000A21D0F /* LzmaEnc.c */,
+				B6F5A98F1CDB3AC000A21D0F /* LzmaEnc.h */,
+				B6F5A9901CDB3AC000A21D0F /* LzmaLib.c */,
+				B6F5A9911CDB3AC000A21D0F /* LzmaLib.h */,
+				B6F5A9921CDB3AC000A21D0F /* NameMangle.h */,
+				B6F5A9931CDB3AC000A21D0F /* readme.txt */,
+				B6F5A9941CDB3AC000A21D0F /* Types.h */,
+			);
+			path = liblzma;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		026832AD1CCEBA4E00BA34F3 /* PDFTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 026832DB1CCEBA4E00BA34F3 /* Build configuration list for PBXNativeTarget "PDFTest" */;
+			buildPhases = (
+				026832AA1CCEBA4E00BA34F3 /* Sources */,
+				026832AB1CCEBA4E00BA34F3 /* Frameworks */,
+				026832AC1CCEBA4E00BA34F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PDFTest;
+			productName = PDFTest;
+			productReference = 026832AE1CCEBA4E00BA34F3 /* PDFTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		026832C61CCEBA4E00BA34F3 /* PDFTestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 026832DE1CCEBA4E00BA34F3 /* Build configuration list for PBXNativeTarget "PDFTestTests" */;
+			buildPhases = (
+				026832C31CCEBA4E00BA34F3 /* Sources */,
+				026832C41CCEBA4E00BA34F3 /* Frameworks */,
+				026832C51CCEBA4E00BA34F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				026832C91CCEBA4E00BA34F3 /* PBXTargetDependency */,
+			);
+			name = PDFTestTests;
+			productName = PDFTestTests;
+			productReference = 026832C71CCEBA4E00BA34F3 /* PDFTestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		026832D11CCEBA4E00BA34F3 /* PDFTestUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 026832E11CCEBA4E00BA34F3 /* Build configuration list for PBXNativeTarget "PDFTestUITests" */;
+			buildPhases = (
+				026832CE1CCEBA4E00BA34F3 /* Sources */,
+				026832CF1CCEBA4E00BA34F3 /* Frameworks */,
+				026832D01CCEBA4E00BA34F3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				026832D41CCEBA4E00BA34F3 /* PBXTargetDependency */,
+			);
+			name = PDFTestUITests;
+			productName = PDFTestUITests;
+			productReference = 026832D21CCEBA4E00BA34F3 /* PDFTestUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		026832A61CCEBA4E00BA34F3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = invicara;
+				TargetAttributes = {
+					026832AD1CCEBA4E00BA34F3 = {
+						CreatedOnToolsVersion = 7.3;
+					};
+					026832C61CCEBA4E00BA34F3 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 026832AD1CCEBA4E00BA34F3;
+					};
+					026832D11CCEBA4E00BA34F3 = {
+						CreatedOnToolsVersion = 7.3;
+						TestTargetID = 026832AD1CCEBA4E00BA34F3;
+					};
+				};
+			};
+			buildConfigurationList = 026832A91CCEBA4E00BA34F3 /* Build configuration list for PBXProject "PDFTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 026832A51CCEBA4E00BA34F3;
+			productRefGroup = 026832AF1CCEBA4E00BA34F3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				026832AD1CCEBA4E00BA34F3 /* PDFTest */,
+				026832C61CCEBA4E00BA34F3 /* PDFTestTests */,
+				026832D11CCEBA4E00BA34F3 /* PDFTestUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		026832AC1CCEBA4E00BA34F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6F5A95C1CDAFD9C00A21D0F /* Floor Plan-First Floor.json in Resources */,
+				B6F5A95F1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf in Resources */,
+				026832C11CCEBA4E00BA34F3 /* LaunchScreen.storyboard in Resources */,
+				026832BE1CCEBA4E00BA34F3 /* Assets.xcassets in Resources */,
+				B6F5A9A11CDB3AC000A21D0F /* readme.txt in Resources */,
+				B6F5A95E1CDAFD9C00A21D0F /* geomInfo.json in Resources */,
+				B6F5A95D1CDAFD9C00A21D0F /* Floor Plan-Level 2.json in Resources */,
+				026832E71CCF052300BA34F3 /* PDFView.xib in Resources */,
+				B6F5A9601CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf in Resources */,
+				026832E51CCEFC8200BA34F3 /* floorplan.pdf in Resources */,
+				B6F5A9671CDB2BA000A21D0F /* openctm in Resources */,
+				B6F5A95B1CDAFD9C00A21D0F /* 101.0.json in Resources */,
+				026832BC1CCEBA4E00BA34F3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		026832C51CCEBA4E00BA34F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		026832D01CCEBA4E00BA34F3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		026832AA1CCEBA4E00BA34F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B6F5A99F1CDB3AC000A21D0F /* LzmaEnc.c in Sources */,
+				B6F5A99A1CDB3AC000A21D0F /* compressMG2.c in Sources */,
+				B6F5A99C1CDB3AC000A21D0F /* Alloc.c in Sources */,
+				B6F5A99E1CDB3AC000A21D0F /* LzmaDec.c in Sources */,
+				026832B91CCEBA4E00BA34F3 /* ViewController.m in Sources */,
+				B6F5A9A31CDB3AC000A21D0F /* stream.c in Sources */,
+				B6F5A9991CDB3AC000A21D0F /* compressMG1.c in Sources */,
+				B6F5A96C1CDB35F100A21D0F /* CTMDecoder.mm in Sources */,
+				B6F5A9A21CDB3AC000A21D0F /* openctm.c in Sources */,
+				B6F5A9651CDB24A300A21D0F /* OverlayView.m in Sources */,
+				026832EA1CCF053A00BA34F3 /* PDFView.m in Sources */,
+				B6F5A99D1CDB3AC000A21D0F /* LzFind.c in Sources */,
+				026832B61CCEBA4E00BA34F3 /* AppDelegate.m in Sources */,
+				B6F5A9A61CDB419500A21D0F /* Element.m in Sources */,
+				B6F5A99B1CDB3AC000A21D0F /* compressRAW.c in Sources */,
+				026832B31CCEBA4E00BA34F3 /* main.m in Sources */,
+				B6F5A9A01CDB3AC000A21D0F /* LzmaLib.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		026832C31CCEBA4E00BA34F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				026832CC1CCEBA4E00BA34F3 /* PDFTestTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		026832CE1CCEBA4E00BA34F3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				026832D71CCEBA4E00BA34F3 /* PDFTestUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		026832C91CCEBA4E00BA34F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 026832AD1CCEBA4E00BA34F3 /* PDFTest */;
+			targetProxy = 026832C81CCEBA4E00BA34F3 /* PBXContainerItemProxy */;
+		};
+		026832D41CCEBA4E00BA34F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 026832AD1CCEBA4E00BA34F3 /* PDFTest */;
+			targetProxy = 026832D31CCEBA4E00BA34F3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		026832BA1CCEBA4E00BA34F3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				026832BB1CCEBA4E00BA34F3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		026832BF1CCEBA4E00BA34F3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				026832C01CCEBA4E00BA34F3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		026832D91CCEBA4E00BA34F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		026832DA1CCEBA4E00BA34F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		026832DC1CCEBA4E00BA34F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = PDFTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.invicara.PDFTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		026832DD1CCEBA4E00BA34F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = PDFTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.invicara.PDFTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		026832DF1CCEBA4E00BA34F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = PDFTestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.invicara.PDFTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PDFTest.app/PDFTest";
+			};
+			name = Debug;
+		};
+		026832E01CCEBA4E00BA34F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = PDFTestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.invicara.PDFTestTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PDFTest.app/PDFTest";
+			};
+			name = Release;
+		};
+		026832E21CCEBA4E00BA34F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = PDFTestUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.invicara.PDFTestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = PDFTest;
+			};
+			name = Debug;
+		};
+		026832E31CCEBA4E00BA34F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = PDFTestUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.invicara.PDFTestUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = PDFTest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		026832A91CCEBA4E00BA34F3 /* Build configuration list for PBXProject "PDFTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				026832D91CCEBA4E00BA34F3 /* Debug */,
+				026832DA1CCEBA4E00BA34F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		026832DB1CCEBA4E00BA34F3 /* Build configuration list for PBXNativeTarget "PDFTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				026832DC1CCEBA4E00BA34F3 /* Debug */,
+				026832DD1CCEBA4E00BA34F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		026832DE1CCEBA4E00BA34F3 /* Build configuration list for PBXNativeTarget "PDFTestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				026832DF1CCEBA4E00BA34F3 /* Debug */,
+				026832E01CCEBA4E00BA34F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		026832E11CCEBA4E00BA34F3 /* Build configuration list for PBXNativeTarget "PDFTestUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				026832E21CCEBA4E00BA34F3 /* Debug */,
+				026832E31CCEBA4E00BA34F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 026832A61CCEBA4E00BA34F3 /* Project object */;
+}
