@@ -11,6 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CGContext.h>
+#import "ViewController.h"
 
 @interface Element : NSObject
 
@@ -18,7 +19,7 @@
 @property bool selected;
 @property (nonatomic, strong) NSMutableArray* geometries;
 
--(Element*)initWithId:(unsigned int)elementId;
+-(Element*)initWithId:(unsigned int)elementId withViewer:(ViewController*) viewer;
 -(void)addGeom:(NSString*)base64String;
 -(void)draw:(CGContextRef) ctx;
 

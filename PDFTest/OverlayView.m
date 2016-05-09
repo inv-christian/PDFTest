@@ -30,8 +30,11 @@
     CGContextSetLineWidth(context, 3);
     
     for (Element* elem in self.elements) {
-        [elem draw:context];
+        //if (elem.selected)
+            [elem draw:context];
     }
+    
+    CGContextStrokePath(context);
 }
 
 @end

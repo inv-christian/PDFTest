@@ -39,11 +39,14 @@ static CTMuint readfn(void * aBuf, CTMuint aCount, void * aUserData)
 
 -(CTMDecoder*) initWithData:(NSData*)data
 {
-    self.ctmCtx = ctmNewContext(CTM_IMPORT);
-    octm_buffer buffer(data.length);
-    //buffer.data = (const char*)[data bytes];
-    [data getBytes:buffer.data length:data.length];
-    ctmLoadCustom(self.ctmCtx, readfn, &buffer);
+    self = [super init];
+    if (self) {
+        self.ctmCtx = ctmNewContext(CTM_IMPORT);
+        octm_buffer buffer(data.length);
+        //buffer.data = (const char*)[data bytes];
+        [data getBytes:buffer.data length:data.length];
+        ctmLoadCustom(self.ctmCtx, readfn, &buffer);
+    }
     return self;
 }
 

@@ -20,19 +20,20 @@
 @property CGPDFPageRef page;
 @property (nonatomic,strong) PDFView* pdfView;
 @property (nonatomic,strong) OverlayView* overlayView;
-
-@property (nonatomic,strong) NSArray* viewOrigin;
-@property (nonatomic,strong) NSArray* viewDir;
-@property (nonatomic,strong) NSArray* viewUpDir;
-@property (nonatomic,strong) NSArray* viewCenter;
-@property (nonatomic,strong) NSArray* viewOutline;
-@property int viewScale;
-@property int printZoom;
-
 @property (nonatomic,strong) NSMutableArray* elements;
+
 @end
 
-@implementation ViewController
+@implementation ViewController {
+    float _viewOrigin[3];
+    float _viewDir[3];
+    float _viewUpDir[3];
+    float _viewCenter[3];
+    float _viewOutline[4];
+    int _viewScale;
+    int _printZoom;
+    float _viewOffset[2];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -62,9 +63,14 @@
 //            CGPDFPageRetain( self.page );
 //        }
         [self loadPdfPageIntoView];
+        [self loadGeometries];
     }
-    
-    [self loadGeometries];
+}
+
+-(void)convertNSArray:(NSArray*)arr toArray:(float*)out
+{
+    for (int i=0; i < arr.count; i++)
+        out[i] = [[arr objectAtIndex:i] floatValue];
 }
 
 -(void)loadGeomInfo {
@@ -86,13 +92,27 @@
         NSDictionary* view = planViews.firstObject;
         self.pdfURL = [[NSBundle mainBundle]URLForResource:[view valueForKey:@"pdf"] withExtension:nil];
         self.geomURL = [[NSBundle mainBundle]URLForResource:[view valueForKey:@"geom"] withExtension:nil];
-        self.viewOrigin = [view valueForKey:@"ViewOrigin"];
-        self.viewDir = [view valueForKey:@"ViewDir"];
-        self.viewUpDir = [view valueForKey:@"ViewUpDir"];
-        self.viewCenter = [view valueForKey:@"ViewCentre"];
-        self.viewOutline = [view valueForKey:@"ViewOutline"];
-        self.viewScale = [[view valueForKey:@"ViewScale"] intValue];
-        self.printZoom = [[view valueForKey:@"printZoom"] intValue];
+        
+        [self convertNSArray:[view valueForKey:@"ViewOrigin"] toArray: _viewOrigin];
+        [self convertNSArray:[view valueForKey:@"ViewDir"] toArray: _viewDir];
+        [self convertNSArray:[view valueForKey:@"ViewUpDir"] toArray: _viewUpDir];
+        [self convertNSArray:[view valueForKey:@"ViewCentre"] toArray: _viewCenter];
+        [self convertNSArray:[view valueForKey:@"ViewOutline"] toArray: _viewOutline];
+        _viewScale = [[view valueForKey:@"ViewScale"] intValue];
+        _printZoom = [[view valueForKey:@"printZoom"] intValue];
+        
+        GLKVector2 projViewCenter = [self project2d:_viewCenter withOrigin:_viewOrigin withZdir:_viewDir withYdir:_viewUpDir];
+        float outlineMid[2] = {(_viewOutline[0] + _viewOutline[2]) / 2, (_viewOutline[1] + _viewOutline[3]) / 2};
+        
+        _viewOffset[0] = -(outlineMid[0] - projViewCenter.x/_viewScale);
+        _viewOffset[1] = (outlineMid[1] - projViewCenter.y/_viewScale);
+        
+        _viewDir[0] = -_viewDir[0];
+        _viewDir[1] = -_viewDir[1];
+        _viewUpDir[0] = -_viewUpDir[0];
+        _viewUpDir[1] = -_viewUpDir[1];
+
+        
     }
 }
 
@@ -113,7 +133,7 @@
     
     for (NSDictionary* elem in [parsed valueForKey:@"geometries"]) {
         unsigned int elemId = [[elem valueForKey:@"elementId"] intValue];
-        Element* element = [[Element alloc] initWithId:elemId];
+        Element* element = [[Element alloc] initWithId:elemId withViewer:self];
         
         NSArray* geoms = [elem valueForKey:@"geometry"];
         for (NSDictionary* geom in geoms) {
@@ -125,6 +145,47 @@
     }
     
     self.overlayView.elements = self.elements;
+    [self.overlayView setNeedsDisplay];
+}
+
+-(GLKVector2)project2d:(float*)pt3d
+            withOrigin:(float*)o
+              withZdir:(float*)z
+              withYdir:(float*)y
+{
+    GLKVector3 origin = GLKVector3MakeWithArray(o ? o : _viewOrigin);
+    GLKVector3 zdir = GLKVector3MakeWithArray(z ? z : _viewDir);
+    GLKVector3 ydir = GLKVector3MakeWithArray(y ? y : _viewUpDir);
+    GLKVector3 xdir = GLKVector3CrossProduct(ydir, zdir);
+    GLKVector3 pt = GLKVector3MakeWithArray(pt3d);
+    
+    GLKVector3 p = GLKVector3Subtract(GLKVector3MakeWithArray(pt3d), origin);
+    return GLKVector2Make(GLKVector3DotProduct(p, xdir), GLKVector3DotProduct(p, ydir));
+}
+
+-(GLKVector2)convertToPixel:(float*)pt3d
+{
+    CGRect pageRect = CGPDFPageGetBoxRect( self.page, kCGPDFMediaBox );
+    float midx = pageRect.size.width / 2;
+    float midy = pageRect.size.height / 2;
+    
+    float pageScale = 1.0;
+    float viewScale = 1.0/_viewScale;
+    float printZoom = _printZoom / 100.0;
+    
+    int pixelsPerInch = 72;
+    float scale = pageScale * 12 * viewScale * printZoom * pixelsPerInch;
+    float offsetx = pageScale * 12 * printZoom * pixelsPerInch * _viewOffset[0];
+    float offsety = pageScale * 12 * printZoom * pixelsPerInch * _viewOffset[1];
+    
+    //float pt3d[3];
+    //[self convertNSArray:pt toArray:pt3d];
+    GLKVector2 pt2d = [self project2d:pt3d withOrigin:nil withZdir:nil withYdir:nil];
+    pt2d.x *= scale;
+    pt2d.y *= scale;
+    pt2d.x += midx + offsetx;
+    pt2d.y += midy + offsety;
+    return pt2d;
 }
 
 -(void)dealloc {
