@@ -10,7 +10,6 @@
 #import "Element.h"
 
 @interface OverlayView()
-@property (nonatomic, weak) NSMutableArray* elements;
 @end
 
 @implementation OverlayView
@@ -22,11 +21,6 @@
         self.opaque = NO;
     }
     return self;
-}
-
--(void)setElements:(NSMutableArray*)elements
-{
-    self.elements = elements;
 }
 
 -(void)drawRect:(CGRect)rect

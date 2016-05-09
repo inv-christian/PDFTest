@@ -124,7 +124,7 @@
         [self.elements addObject:element];
     }
     
-    [self.overlayView setElements:self.elements];
+    self.overlayView.elements = self.elements;
 }
 
 -(void)dealloc {
@@ -179,7 +179,6 @@
 
 -(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
     NSLog(@"%s %f",__func__, scale);
-    //[self.pdfView setScale:scale];
 }
 
 

@@ -18,11 +18,10 @@
 
 @interface PDFView : UIView
 @property (nonatomic,assign) CGPDFPageRef pdfPage;
-@property (nonatomic,assign) CGFloat myScale;
+@property (nonatomic,assign) CGFloat scale;
 @property (nonatomic,weak)id<PDFViewProtocol> delegate;
 
 - (id)initWithFrame:(CGRect)frame scale:(CGFloat)scale;
 - (void)setPage:(CGPDFPageRef)newPage;
-- (void)setScale:(CGFloat)scale;
 
 @end

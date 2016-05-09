@@ -8,9 +8,6 @@
 
 #import "PDFView.h"
 
-static const CGFloat kMinPdfViewScale = 0.25;
-static const CGFloat kMaxPdfViewScale = 5.0;
-
 @interface PDFView()
 
 @end
@@ -23,7 +20,16 @@ static const CGFloat kMaxPdfViewScale = 5.0;
     self = [super initWithFrame:frame];
     if (self) {
 
-        self.myScale = scale;
+        self.scale = scale;
+        
+        // adjust properties of CATiledLayer
+        
+        /*CATiledLayer *tiledLayer = (CATiledLayer *)[self layer];
+        
+        tiledLayer.levelsOfDetail = 4;
+        tiledLayer.levelsOfDetailBias = 3;
+        tiledLayer.tileSize = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX); // ask for largest tile*/
+        
         self.layer.borderColor = [UIColor lightGrayColor].CGColor;
         self.layer.borderWidth = 5;
         [self setupGestureRecognizers];
@@ -63,15 +69,10 @@ static const CGFloat kMaxPdfViewScale = 5.0;
     if( newPage != NULL ) self.pdfPage = CGPDFPageRetain( newPage );
 }
 
-- (void)setScale:(CGFloat)scale {
-    self.myScale = scale;
-    //[self setNeedsDisplay];
-}
-
 // Draw the CGPDFPageRef into the layer at the correct scale.
 -(void)drawLayer:(CALayer*)layer inContext:(CGContextRef)context {
     
-    NSLog(@"%s myScale:%f",__PRETTY_FUNCTION__,self.myScale);
+    NSLog(@"%s myScale:%f",__PRETTY_FUNCTION__,self.scale);
 
     // Fill the background with white.
     CGContextSetRGBFillColor(context, 1.0,1.0,1.0,1.0);
@@ -88,7 +89,7 @@ static const CGFloat kMaxPdfViewScale = 5.0;
     CGContextScaleCTM(context, 1.0, -1.0);
     
     // Scale the context so that the PDF page is rendered at the correct size for the zoom level.
-    CGContextScaleCTM(context, self.myScale, self.myScale);
+    CGContextScaleCTM(context, self.scale, self.scale);
     CGContextDrawPDFPage(context, self.pdfPage);
     CGContextRestoreGState(context);
 }
