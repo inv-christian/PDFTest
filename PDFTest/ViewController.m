@@ -67,7 +67,7 @@
     }
 }
 
--(void)convertNSArray:(NSArray*)arr toArray:(float*)out
+-(void)convertNSArray:(NSArray*)arr toFloatArray:(float*)out
 {
     for (int i=0; i < arr.count; i++)
         out[i] = [[arr objectAtIndex:i] floatValue];
@@ -89,15 +89,15 @@
     
     NSArray* planViews = [parsed valueForKey:@"planViews"];
     if (planViews.count > 0) {
-        NSDictionary* view = planViews.firstObject;
+        NSDictionary* view = [planViews objectAtIndex:1]; //planViews.firstObject;
         self.pdfURL = [[NSBundle mainBundle]URLForResource:[view valueForKey:@"pdf"] withExtension:nil];
         self.geomURL = [[NSBundle mainBundle]URLForResource:[view valueForKey:@"geom"] withExtension:nil];
         
-        [self convertNSArray:[view valueForKey:@"ViewOrigin"] toArray: _viewOrigin];
-        [self convertNSArray:[view valueForKey:@"ViewDir"] toArray: _viewDir];
-        [self convertNSArray:[view valueForKey:@"ViewUpDir"] toArray: _viewUpDir];
-        [self convertNSArray:[view valueForKey:@"ViewCentre"] toArray: _viewCenter];
-        [self convertNSArray:[view valueForKey:@"ViewOutline"] toArray: _viewOutline];
+        [self convertNSArray:[view valueForKey:@"ViewOrigin"] toFloatArray: _viewOrigin];
+        [self convertNSArray:[view valueForKey:@"ViewDir"] toFloatArray: _viewDir];
+        [self convertNSArray:[view valueForKey:@"ViewUpDir"] toFloatArray: _viewUpDir];
+        [self convertNSArray:[view valueForKey:@"ViewCentre"] toFloatArray: _viewCenter];
+        [self convertNSArray:[view valueForKey:@"ViewOutline"] toFloatArray: _viewOutline];
         _viewScale = [[view valueForKey:@"ViewScale"] intValue];
         _printZoom = [[view valueForKey:@"printZoom"] intValue];
         
@@ -109,8 +109,10 @@
         
         _viewDir[0] = -_viewDir[0];
         _viewDir[1] = -_viewDir[1];
+        _viewDir[2] = -_viewDir[2];
         _viewUpDir[0] = -_viewUpDir[0];
         _viewUpDir[1] = -_viewUpDir[1];
+        _viewUpDir[2] = -_viewUpDir[2];
 
         
     }
@@ -157,7 +159,6 @@
     GLKVector3 zdir = GLKVector3MakeWithArray(z ? z : _viewDir);
     GLKVector3 ydir = GLKVector3MakeWithArray(y ? y : _viewUpDir);
     GLKVector3 xdir = GLKVector3CrossProduct(ydir, zdir);
-    GLKVector3 pt = GLKVector3MakeWithArray(pt3d);
     
     GLKVector3 p = GLKVector3Subtract(GLKVector3MakeWithArray(pt3d), origin);
     return GLKVector2Make(GLKVector3DotProduct(p, xdir), GLKVector3DotProduct(p, ydir));
@@ -178,8 +179,6 @@
     float offsetx = pageScale * 12 * printZoom * pixelsPerInch * _viewOffset[0];
     float offsety = pageScale * 12 * printZoom * pixelsPerInch * _viewOffset[1];
     
-    //float pt3d[3];
-    //[self convertNSArray:pt toArray:pt3d];
     GLKVector2 pt2d = [self project2d:pt3d withOrigin:nil withZdir:nil withYdir:nil];
     pt2d.x *= scale;
     pt2d.y *= scale;

@@ -26,6 +26,9 @@
 -(void)drawRect:(CGRect)rect
 {
     CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSaveGState(context);
+    
     CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
     CGContextSetLineWidth(context, 3);
     
@@ -35,6 +38,8 @@
     }
     
     CGContextStrokePath(context);
+    
+    CGContextRestoreGState(context);
 }
 
 @end

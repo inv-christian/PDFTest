@@ -74,23 +74,32 @@
     
     NSLog(@"%s myScale:%f",__PRETTY_FUNCTION__,self.scale);
 
-    // Fill the background with white.
-    CGContextSetRGBFillColor(context, 1.0,1.0,1.0,1.0);
-    CGContextFillRect(context, self.bounds);
-    
     // Print a blank page and return if our page is null.
     if( _pdfPage == NULL ) {
         return;
     }
     
     CGContextSaveGState(context);
+    
+    CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
+    CGContextFillRect(context, self.bounds);
+    
     // Flip the context so that the PDF page is rendered right side up.
     CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
     CGContextScaleCTM(context, 1.0, -1.0);
     
+    NSInteger rotationAngle = CGPDFPageGetRotationAngle(self.pdfPage);
+    if (rotationAngle != 0) {
+        CGContextTranslateCTM(context, self.bounds.size.width/2, self.bounds.size.height/2);
+        CGContextRotateCTM(context, -rotationAngle * M_PI/180.0);
+        CGContextTranslateCTM(context, -self.bounds.size.width/2, -self.bounds.size.height/2);
+    }
+    
     // Scale the context so that the PDF page is rendered at the correct size for the zoom level.
-    CGContextScaleCTM(context, self.scale, self.scale);
+    //CGContextScaleCTM(context, self.scale, self.scale);
+    
     CGContextDrawPDFPage(context, self.pdfPage);
+    
     CGContextRestoreGState(context);
 }
 

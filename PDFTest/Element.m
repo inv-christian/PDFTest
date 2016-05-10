@@ -8,7 +8,6 @@
 
 #import "Element.h"
 #import "CTMDecoder.h"
-#import <CoreGraphics/CoreGraphics.h>
 
 @interface Element()
 @property (nonatomic, weak) ViewController* viewer;
@@ -46,9 +45,7 @@
 
 -(void)draw:(CGContextRef) context
 {
-    //CGContextBeginPath(context);
-     for (NSArray* geom in self.geometries) {
-         
+    for (NSArray* geom in self.geometries) {
         for (int i=0; i < geom.count; i+= 6) {
             if (i <= geom.count - 6) {
                 
@@ -63,7 +60,6 @@
             }
         }
     }
-    //CGContextStrokePath(context);
 }
 
 @end
