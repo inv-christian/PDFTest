@@ -89,7 +89,9 @@
     
     NSArray* planViews = [parsed valueForKey:@"planViews"];
     if (planViews.count > 0) {
-        NSDictionary* view = [planViews objectAtIndex:1]; //planViews.firstObject;
+        //NSDictionary* view = planViews.firstObject;
+        NSDictionary* view = [planViews objectAtIndex:1];
+
         self.pdfURL = [[NSBundle mainBundle]URLForResource:[view valueForKey:@"pdf"] withExtension:nil];
         self.geomURL = [[NSBundle mainBundle]URLForResource:[view valueForKey:@"geom"] withExtension:nil];
         
@@ -166,7 +168,8 @@
 
 -(GLKVector2)convertToPixel:(float*)pt3d
 {
-    CGRect pageRect = CGPDFPageGetBoxRect( self.page, kCGPDFMediaBox );
+    CGRect pageRect = self.pdfView.bounds;
+    
     float midx = pageRect.size.width / 2;
     float midy = pageRect.size.height / 2;
     
