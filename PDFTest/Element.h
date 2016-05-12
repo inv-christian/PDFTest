@@ -12,14 +12,18 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CGContext.h>
 #import "ViewController.h"
+@class PDFGeometryViewModel;
 
 @interface Element : NSObject
 
 @property unsigned int elementId;
 @property bool selected;
 @property (nonatomic, strong) NSMutableArray* geometries;
+@property (nonatomic, assign) CGRect boundingBox;
+@property (nonatomic, assign) CGPathRef pathRef;
 
--(Element*)initWithId:(unsigned int)elementId withViewer:(ViewController*) viewer;
+
+-(Element*)initWithId:(unsigned int)elementId andPDFGeomViewModel:(PDFGeometryViewModel*)viewModel;
 -(void)addGeom:(NSString*)base64String;
 -(void)draw:(CGContextRef) ctx;
 

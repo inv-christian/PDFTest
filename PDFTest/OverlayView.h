@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class PDFGeometryViewModel;
 @interface OverlayView : UIView
-@property (nonatomic, copy) NSMutableArray* elements;
+@property (nonatomic, copy) NSArray* elements;
 
--(id)initWithFrame:(CGRect)frame;
+-(id)initWithFrame:(CGRect)frame andPDFGeomViewModel:(PDFGeometryViewModel*)viewModel;
 -(void)drawRect:(CGRect)rect;
 
 @end

@@ -8,20 +8,20 @@
 
 #import "Element.h"
 #import "CTMDecoder.h"
+#import "PDFGeometryViewModel.h"
 
 @interface Element()
-@property (nonatomic, weak) ViewController* viewer;
-
+@property (nonatomic, strong) PDFGeometryViewModel* viewModel;
 @end
 
 @implementation Element
 
--(Element*)initWithId:(unsigned int)elementId withViewer:(ViewController*) viewer
+-(Element*)initWithId:(unsigned int)elementId andPDFGeomViewModel:(PDFGeometryViewModel*)viewModel
 {
     self = [super init];
     if (self) {
         self.elementId = elementId;
-        self.viewer = viewer;
+        self.viewModel = viewModel;
         self.selected = false;
         self.geometries = [[NSMutableArray alloc] init];
     }
@@ -52,8 +52,9 @@
                 float arr[6];
                 [self getPoints:geom startOffset:i toArray:arr];
                 
-                GLKVector2 p1 = [self.viewer convertToPixel:arr];
-                GLKVector2 p2 = [self.viewer convertToPixel:(arr+3)];
+                GLKVector2 p1 = [self.viewModel convertToPixel:arr inRect:CGContextGetClipBoundingBox(context)];
+                GLKVector2 p2 = [self.viewModel convertToPixel:(arr+3) inRect:CGContextGetClipBoundingBox(context)];
+                
                 
                 CGContextMoveToPoint(context, p1.x, p1.y);
                 CGContextAddLineToPoint(context, p2.x, p2.y);

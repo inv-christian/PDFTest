@@ -10,23 +10,25 @@
 #import "PDFView.h"
 #import "OverlayView.h"
 #import "Element.h"
+#import "PDFGeometryViewModel.h"
+
 @import GLKit;
 
 static const CGFloat kMinPdfViewScale = 0.25;
-static const CGFloat kMaxPdfViewScale = 5.0;
+static const CGFloat kMaxPdfViewScale = 8.0;
 
 
 @interface ViewController () <UIScrollViewDelegate, PDFViewProtocol>
-@property (nonatomic,strong) NSURL* pdfURL;
-@property (nonatomic,strong) NSURL* geomURL;
+//@property (nonatomic,strong) NSURL* pdfURL;
+//@property (nonatomic,strong) NSURL* geomURL;
 @property (nonatomic,assign)CGPDFDocumentRef pdf;
 @property (weak, nonatomic) IBOutlet UIScrollView *pdfScrollView;
 @property CGPDFPageRef page;
 @property (nonatomic,strong) PDFView* pdfView;
 @property (nonatomic,strong) OverlayView* overlayView;
-@property (nonatomic,strong) NSMutableArray* elements;
+//@property (nonatomic,strong) NSMutableArray* elements;
 @property (nonatomic,assign) CGFloat pdfScale;
-
+@property (nonatomic, strong)PDFGeometryViewModel* geomViewModel;
 @end
 
 @implementation ViewController {
@@ -53,11 +55,12 @@ static const CGFloat kMaxPdfViewScale = 5.0;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo.json" withExtension:nil];
+    self.geomViewModel = [[PDFGeometryViewModel alloc]initWithGeometryURL:geomInfoURL];
     
-    [self loadGeomInfo];
     
     //self.pdfURL = [[NSBundle mainBundle]URLForResource:@"floorplan" withExtension:@"pdf"];
-    self.pdf = CGPDFDocumentCreateWithURL( (__bridge CFURLRef) self.pdfURL );
+    self.pdf = CGPDFDocumentCreateWithURL( (__bridge CFURLRef) self.geomViewModel .pdfURL );
     
     if (self.pdf == NULL) {
         CGPDFDocumentRelease(self.pdf);
@@ -70,7 +73,9 @@ static const CGFloat kMaxPdfViewScale = 5.0;
 //        }
         self.pdfScale = 1.0;
         [self loadPdfPageIntoViewFrame:CGPDFPageGetBoxRect( self.page, kCGPDFMediaBox )];
-        [self loadGeometries];
+  ;
+        self.overlayView.elements = self.geomViewModel.elements ;
+      
     }
 }
 
@@ -89,122 +94,124 @@ static const CGFloat kMaxPdfViewScale = 5.0;
         out[i] = [[arr objectAtIndex:i] floatValue];
 }
 
--(void)loadGeomInfo {
-    NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo.json" withExtension:nil];
-    NSError* error = nil;
-    NSData* jsonData = [NSData dataWithContentsOfURL:geomInfoURL options:NSDataReadingUncached error:&error];
-    if (error) {
-        NSLog(@"%@", [error localizedDescription]);
-    }
-    
-    error = nil;
-    NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-    if (error) {
-        NSLog(@"%@", [error localizedDescription]);
-    }
-    
-    NSArray* planViews = [parsed valueForKey:@"planViews"];
-    if (planViews.count > 0) {
-        //NSDictionary* view = planViews.firstObject;
-        NSDictionary* view = [planViews objectAtIndex:1];
+//-(void)loadGeomInfo {
+//    NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo.json" withExtension:nil];
+//    NSError* error = nil;
+//    NSData* jsonData = [NSData dataWithContentsOfURL:geomInfoURL options:NSDataReadingUncached error:&error];
+//    if (error) {
+//        NSLog(@"%@", [error localizedDescription]);
+//    }
+//    
+//    error = nil;
+//    NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+//    if (error) {
+//        NSLog(@"%@", [error localizedDescription]);
+//    }
+//    
+//    NSArray* planViews = [parsed valueForKey:@"planViews"];
+//    if (planViews.count > 0) {
+//        //NSDictionary* view = planViews.firstObject;
+//        NSDictionary* view = [planViews objectAtIndex:1];
+//
+//        self.pdfURL = [[NSBundle mainBundle]URLForResource:[view valueForKey:@"pdf"] withExtension:nil];
+//        self.geomURL = [[NSBundle mainBundle]URLForResource:[view valueForKey:@"geom"] withExtension:nil];
+//        
+//        
+//    
+//        [self convertNSArray:[view valueForKey:@"ViewOrigin"] toFloatArray: _viewOrigin];
+//        [self convertNSArray:[view valueForKey:@"ViewDir"] toFloatArray: _viewDir];
+//        [self convertNSArray:[view valueForKey:@"ViewUpDir"] toFloatArray: _viewUpDir];
+//        [self convertNSArray:[view valueForKey:@"ViewCentre"] toFloatArray: _viewCenter];
+//        [self convertNSArray:[view valueForKey:@"ViewOutline"] toFloatArray: _viewOutline];
+//        _viewScale = [[view valueForKey:@"ViewScale"] intValue];
+//        _printZoom = [[view valueForKey:@"printZoom"] intValue];
+//        
+//        GLKVector2 projViewCenter = [self project2d:_viewCenter withOrigin:_viewOrigin withZdir:_viewDir withYdir:_viewUpDir];
+//        float outlineMid[2] = {(_viewOutline[0] + _viewOutline[2]) / 2, (_viewOutline[1] + _viewOutline[3]) / 2};
+//        
+//        _viewOffset[0] = -(outlineMid[0] - projViewCenter.x/_viewScale);
+//        _viewOffset[1] = (outlineMid[1] - projViewCenter.y/_viewScale);
+//        
+//        _viewDir[0] = -_viewDir[0];
+//        _viewDir[1] = -_viewDir[1];
+//        _viewDir[2] = -_viewDir[2];
+//        _viewUpDir[0] = -_viewUpDir[0];
+//        _viewUpDir[1] = -_viewUpDir[1];
+//        _viewUpDir[2] = -_viewUpDir[2];
+//
+//        
+//    }
+//}
 
-        self.pdfURL = [[NSBundle mainBundle]URLForResource:[view valueForKey:@"pdf"] withExtension:nil];
-        self.geomURL = [[NSBundle mainBundle]URLForResource:[view valueForKey:@"geom"] withExtension:nil];
-        
-        [self convertNSArray:[view valueForKey:@"ViewOrigin"] toFloatArray: _viewOrigin];
-        [self convertNSArray:[view valueForKey:@"ViewDir"] toFloatArray: _viewDir];
-        [self convertNSArray:[view valueForKey:@"ViewUpDir"] toFloatArray: _viewUpDir];
-        [self convertNSArray:[view valueForKey:@"ViewCentre"] toFloatArray: _viewCenter];
-        [self convertNSArray:[view valueForKey:@"ViewOutline"] toFloatArray: _viewOutline];
-        _viewScale = [[view valueForKey:@"ViewScale"] intValue];
-        _printZoom = [[view valueForKey:@"printZoom"] intValue];
-        
-        GLKVector2 projViewCenter = [self project2d:_viewCenter withOrigin:_viewOrigin withZdir:_viewDir withYdir:_viewUpDir];
-        float outlineMid[2] = {(_viewOutline[0] + _viewOutline[2]) / 2, (_viewOutline[1] + _viewOutline[3]) / 2};
-        
-        _viewOffset[0] = -(outlineMid[0] - projViewCenter.x/_viewScale);
-        _viewOffset[1] = (outlineMid[1] - projViewCenter.y/_viewScale);
-        
-        _viewDir[0] = -_viewDir[0];
-        _viewDir[1] = -_viewDir[1];
-        _viewDir[2] = -_viewDir[2];
-        _viewUpDir[0] = -_viewUpDir[0];
-        _viewUpDir[1] = -_viewUpDir[1];
-        _viewUpDir[2] = -_viewUpDir[2];
-
-        
-    }
-}
-
--(void)loadGeometries {
-    self.elements = [[NSMutableArray alloc] init];
-    
-    NSError* error = nil;
-    NSData* jsonData = [NSData dataWithContentsOfURL:self.geomURL options:NSDataReadingUncached error:&error];
-    if (error) {
-        NSLog(@"%@", [error localizedDescription]);
-    }
-    
-    error = nil;
-    NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-    if (error) {
-        NSLog(@"%@", [error localizedDescription]);
-    }
-    
-    for (NSDictionary* elem in [parsed valueForKey:@"geometries"]) {
-        unsigned int elemId = [[elem valueForKey:@"elementId"] intValue];
-        Element* element = [[Element alloc] initWithId:elemId withViewer:self];
-        
-        NSArray* geoms = [elem valueForKey:@"geometry"];
-        for (NSDictionary* geom in geoms) {
-            NSString* data = [geom valueForKey:@"data"];
-            [element addGeom:data];
-        }
-
-        [self.elements addObject:element];
-    }
-    
-    self.overlayView.elements = self.elements;
-    [self.overlayView setNeedsDisplay];
-}
-
--(GLKVector2)project2d:(float*)pt3d
-            withOrigin:(float*)o
-              withZdir:(float*)z
-              withYdir:(float*)y
-{
-    GLKVector3 origin = GLKVector3MakeWithArray(o ? o : _viewOrigin);
-    GLKVector3 zdir = GLKVector3MakeWithArray(z ? z : _viewDir);
-    GLKVector3 ydir = GLKVector3MakeWithArray(y ? y : _viewUpDir);
-    GLKVector3 xdir = GLKVector3CrossProduct(ydir, zdir);
-    
-    GLKVector3 p = GLKVector3Subtract(GLKVector3MakeWithArray(pt3d), origin);
-    return GLKVector2Make(GLKVector3DotProduct(p, xdir), GLKVector3DotProduct(p, ydir));
-}
-
--(GLKVector2)convertToPixel:(float*)pt3d
-{
-    CGRect pageRect = self.pdfView.bounds;
-    
-    float midx = pageRect.size.width / 2;
-    float midy = pageRect.size.height / 2;
-    
-    float pageScale = 1.0;
-    float viewScale = 1.0/_viewScale;
-    float printZoom = _printZoom / 100.0;
-    
-    int pixelsPerInch = 72;
-    float scale = pageScale * 12 * viewScale * printZoom * pixelsPerInch;
-    float offsetx = pageScale * 12 * printZoom * pixelsPerInch * _viewOffset[0];
-    float offsety = pageScale * 12 * printZoom * pixelsPerInch * _viewOffset[1];
-    
-    GLKVector2 pt2d = [self project2d:pt3d withOrigin:nil withZdir:nil withYdir:nil];
-    pt2d.x *= scale;
-    pt2d.y *= scale;
-    pt2d.x += midx + offsetx;
-    pt2d.y += midy + offsety;
-    return pt2d;
-}
+//-(void)loadGeometries {
+//    self.elements = [[NSMutableArray alloc] init];
+//    
+//    NSError* error = nil;
+//    NSData* jsonData = [NSData dataWithContentsOfURL:self.geomURL options:NSDataReadingUncached error:&error];
+//    if (error) {
+//        NSLog(@"%@", [error localizedDescription]);
+//    }
+//    
+//    error = nil;
+//    NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+//    if (error) {
+//        NSLog(@"%@", [error localizedDescription]);
+//    }
+//    
+//    for (NSDictionary* elem in [parsed valueForKey:@"geometries"]) {
+//        unsigned int elemId = [[elem valueForKey:@"elementId"] intValue];
+//        Element* element = [[Element alloc] initWithId:elemId withViewer:self];
+//        
+//        NSArray* geoms = [elem valueForKey:@"geometry"];
+//        for (NSDictionary* geom in geoms) {
+//            NSString* data = [geom valueForKey:@"data"];
+//            [element addGeom:data];
+//        }
+//
+//        [self.elements addObject:element];
+//    }
+//    
+//    self.overlayView.elements = self.elements;
+//
+//}
+//
+//-(GLKVector2)project2d:(float*)pt3d
+//            withOrigin:(float*)o
+//              withZdir:(float*)z
+//              withYdir:(float*)y
+//{
+//    GLKVector3 origin = GLKVector3MakeWithArray(o ? o : _viewOrigin);
+//    GLKVector3 zdir = GLKVector3MakeWithArray(z ? z : _viewDir);
+//    GLKVector3 ydir = GLKVector3MakeWithArray(y ? y : _viewUpDir);
+//    GLKVector3 xdir = GLKVector3CrossProduct(ydir, zdir);
+//    
+//    GLKVector3 p = GLKVector3Subtract(GLKVector3MakeWithArray(pt3d), origin);
+//    return GLKVector2Make(GLKVector3DotProduct(p, xdir), GLKVector3DotProduct(p, ydir));
+//}
+//
+//-(GLKVector2)convertToPixel:(float*)pt3d
+//{
+//    CGRect pageRect = self.pdfView.bounds;
+//    
+//    float midx = pageRect.size.width / 2;
+//    float midy = pageRect.size.height / 2;
+//    
+//    float pageScale = 1.0;
+//    float viewScale = 1.0/_viewScale;
+//    float printZoom = _printZoom / 100.0;
+//    
+//    int pixelsPerInch = 72;
+//    float scale = pageScale * 12 * viewScale * printZoom * pixelsPerInch;
+//    float offsetx = pageScale * 12 * printZoom * pixelsPerInch * _viewOffset[0];
+//    float offsety = pageScale * 12 * printZoom * pixelsPerInch * _viewOffset[1];
+//    
+//    GLKVector2 pt2d = [self project2d:pt3d withOrigin:nil withZdir:nil withYdir:nil];
+//    pt2d.x *= scale;
+//    pt2d.y *= scale;
+//    pt2d.x += midx + offsetx;
+//    pt2d.y += midy + offsety;
+//    return pt2d;
+//}
 
 -(void)dealloc {
     if (self.pdf != NULL) {
@@ -228,7 +235,7 @@ static const CGFloat kMaxPdfViewScale = 5.0;
     self.pdfScrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [self setPdfPageViewConstraints];
     
-    self.overlayView = [[OverlayView alloc] initWithFrame:frame];
+    self.overlayView = [[OverlayView alloc] initWithFrame:frame andPDFGeomViewModel:self.geomViewModel];
     [self.pdfView addSubview:self.overlayView];
     
 }
@@ -240,8 +247,16 @@ static const CGFloat kMaxPdfViewScale = 5.0;
 }
 
 
--(void)highlightSelectedView {
-    
+-(void)highlightSelectedElementAtLocation:(CGPoint)location {
+    [self.geomViewModel.elements enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        Element* element = obj;
+        if (CGRectContainsPoint( element.boundingBox ,location)) {
+            NSLog(@"%@",NSStringFromCGRect(element.boundingBox) );
+            element.selected = YES;
+            NSLog(@"Contains point");
+        }
+    }];
+    [self.overlayView setNeedsDisplay];
     
 }
 
@@ -278,7 +293,7 @@ static const CGFloat kMaxPdfViewScale = 5.0;
     //[overlayView setBackgroundColor:[UIColor yellowColor]];
     //[self.pdfView addSubview:overlayView];
      
-    [self highlightSelectedView];
+    [self highlightSelectedElementAtLocation:location];
 }
 
 #pragma mark - auto kayout
