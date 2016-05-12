@@ -24,11 +24,11 @@
         
         // adjust properties of CATiledLayer
         
-        /*CATiledLayer *tiledLayer = (CATiledLayer *)[self layer];
+        CATiledLayer *tiledLayer = (CATiledLayer *)[self layer];
         
         tiledLayer.levelsOfDetail = 4;
         tiledLayer.levelsOfDetailBias = 3;
-        tiledLayer.tileSize = CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX); // ask for largest tile*/
+        tiledLayer.tileSize = CGSizeMake(200,200);
         
         self.layer.borderColor = [UIColor lightGrayColor].CGColor;
         self.layer.borderWidth = 5;
@@ -96,7 +96,7 @@
     }
     
     // Scale the context so that the PDF page is rendered at the correct size for the zoom level.
-    //CGContextScaleCTM(context, self.scale, self.scale);
+   //CGContextScaleCTM(context, self.scale, self.scale);
     
     CGContextDrawPDFPage(context, self.pdfPage);
     
