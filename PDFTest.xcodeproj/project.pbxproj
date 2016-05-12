@@ -18,28 +18,27 @@
 		026832E51CCEFC8200BA34F3 /* floorplan.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 026832E41CCEFC8200BA34F3 /* floorplan.pdf */; };
 		026832E71CCF052300BA34F3 /* PDFView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 026832E61CCF052300BA34F3 /* PDFView.xib */; };
 		026832EA1CCF053A00BA34F3 /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026832E91CCF053A00BA34F3 /* PDFView.m */; };
-		B6F5A95B1CDAFD9C00A21D0F /* 101.0.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9551CDAFD9C00A21D0F /* 101.0.json */; settings = {ASSET_TAGS = (); }; };
-		B6F5A95C1CDAFD9C00A21D0F /* Floor Plan-First Floor.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9561CDAFD9C00A21D0F /* Floor Plan-First Floor.json */; settings = {ASSET_TAGS = (); }; };
-		B6F5A95D1CDAFD9C00A21D0F /* Floor Plan-Level 2.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9571CDAFD9C00A21D0F /* Floor Plan-Level 2.json */; settings = {ASSET_TAGS = (); }; };
-		B6F5A95E1CDAFD9C00A21D0F /* geomInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9581CDAFD9C00A21D0F /* geomInfo.json */; settings = {ASSET_TAGS = (); }; };
-		B6F5A95F1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9591CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf */; settings = {ASSET_TAGS = (); }; };
-		B6F5A9601CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A95A1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf */; settings = {ASSET_TAGS = (); }; };
+		B6F5A95B1CDAFD9C00A21D0F /* 101.0.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9551CDAFD9C00A21D0F /* 101.0.json */; };
+		B6F5A95C1CDAFD9C00A21D0F /* Floor Plan-First Floor.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9561CDAFD9C00A21D0F /* Floor Plan-First Floor.json */; };
+		B6F5A95D1CDAFD9C00A21D0F /* Floor Plan-Level 2.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9571CDAFD9C00A21D0F /* Floor Plan-Level 2.json */; };
+		B6F5A95E1CDAFD9C00A21D0F /* geomInfo.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9581CDAFD9C00A21D0F /* geomInfo.json */; };
+		B6F5A95F1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9591CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf */; };
+		B6F5A9601CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A95A1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf */; };
 		B6F5A9621CDB054400A21D0F /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6F5A9611CDB054400A21D0F /* GLKit.framework */; };
-		B6F5A9651CDB24A300A21D0F /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9641CDB24A300A21D0F /* OverlayView.m */; settings = {ASSET_TAGS = (); }; };
-		B6F5A9671CDB2BA000A21D0F /* openctm in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9661CDB2BA000A21D0F /* openctm */; settings = {ASSET_TAGS = (); }; };
-		B6F5A96C1CDB35F100A21D0F /* CTMDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A96B1CDB35F100A21D0F /* CTMDecoder.mm */; settings = {ASSET_TAGS = (); }; };
-		B6F5A9991CDB3AC000A21D0F /* compressMG1.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9821CDB3AC000A21D0F /* compressMG1.c */; settings = {ASSET_TAGS = (); }; };
-		B6F5A99A1CDB3AC000A21D0F /* compressMG2.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9831CDB3AC000A21D0F /* compressMG2.c */; settings = {ASSET_TAGS = (); }; };
-		B6F5A99B1CDB3AC000A21D0F /* compressRAW.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9841CDB3AC000A21D0F /* compressRAW.c */; settings = {ASSET_TAGS = (); }; };
-		B6F5A99C1CDB3AC000A21D0F /* Alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9871CDB3AC000A21D0F /* Alloc.c */; settings = {ASSET_TAGS = (); }; };
-		B6F5A99D1CDB3AC000A21D0F /* LzFind.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9891CDB3AC000A21D0F /* LzFind.c */; settings = {ASSET_TAGS = (); }; };
-		B6F5A99E1CDB3AC000A21D0F /* LzmaDec.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A98C1CDB3AC000A21D0F /* LzmaDec.c */; settings = {ASSET_TAGS = (); }; };
-		B6F5A99F1CDB3AC000A21D0F /* LzmaEnc.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A98E1CDB3AC000A21D0F /* LzmaEnc.c */; settings = {ASSET_TAGS = (); }; };
-		B6F5A9A01CDB3AC000A21D0F /* LzmaLib.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9901CDB3AC000A21D0F /* LzmaLib.c */; settings = {ASSET_TAGS = (); }; };
-		B6F5A9A11CDB3AC000A21D0F /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9931CDB3AC000A21D0F /* readme.txt */; settings = {ASSET_TAGS = (); }; };
-		B6F5A9A21CDB3AC000A21D0F /* openctm.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9951CDB3AC000A21D0F /* openctm.c */; settings = {ASSET_TAGS = (); }; };
-		B6F5A9A31CDB3AC000A21D0F /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9981CDB3AC000A21D0F /* stream.c */; settings = {ASSET_TAGS = (); }; };
-		B6F5A9A61CDB419500A21D0F /* Element.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9A51CDB419500A21D0F /* Element.m */; settings = {ASSET_TAGS = (); }; };
+		B6F5A9651CDB24A300A21D0F /* OverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9641CDB24A300A21D0F /* OverlayView.m */; };
+		B6F5A96C1CDB35F100A21D0F /* CTMDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A96B1CDB35F100A21D0F /* CTMDecoder.mm */; };
+		B6F5A9991CDB3AC000A21D0F /* compressMG1.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9821CDB3AC000A21D0F /* compressMG1.c */; };
+		B6F5A99A1CDB3AC000A21D0F /* compressMG2.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9831CDB3AC000A21D0F /* compressMG2.c */; };
+		B6F5A99B1CDB3AC000A21D0F /* compressRAW.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9841CDB3AC000A21D0F /* compressRAW.c */; };
+		B6F5A99C1CDB3AC000A21D0F /* Alloc.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9871CDB3AC000A21D0F /* Alloc.c */; };
+		B6F5A99D1CDB3AC000A21D0F /* LzFind.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9891CDB3AC000A21D0F /* LzFind.c */; };
+		B6F5A99E1CDB3AC000A21D0F /* LzmaDec.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A98C1CDB3AC000A21D0F /* LzmaDec.c */; };
+		B6F5A99F1CDB3AC000A21D0F /* LzmaEnc.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A98E1CDB3AC000A21D0F /* LzmaEnc.c */; };
+		B6F5A9A01CDB3AC000A21D0F /* LzmaLib.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9901CDB3AC000A21D0F /* LzmaLib.c */; };
+		B6F5A9A11CDB3AC000A21D0F /* readme.txt in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9931CDB3AC000A21D0F /* readme.txt */; };
+		B6F5A9A21CDB3AC000A21D0F /* openctm.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9951CDB3AC000A21D0F /* openctm.c */; };
+		B6F5A9A31CDB3AC000A21D0F /* stream.c in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9981CDB3AC000A21D0F /* stream.c */; };
+		B6F5A9A61CDB419500A21D0F /* Element.m in Sources */ = {isa = PBXBuildFile; fileRef = B6F5A9A51CDB419500A21D0F /* Element.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,7 +88,6 @@
 		B6F5A9611CDB054400A21D0F /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
 		B6F5A9631CDB22EA00A21D0F /* OverlayView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OverlayView.h; sourceTree = "<group>"; };
 		B6F5A9641CDB24A300A21D0F /* OverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverlayView.m; sourceTree = "<group>"; };
-		B6F5A9661CDB2BA000A21D0F /* openctm */ = {isa = PBXFileReference; lastKnownFileType = folder; name = openctm; path = /Users/invsg010/dev/test/PDFTest/PDFTest/openctm; sourceTree = "<absolute>"; };
 		B6F5A9681CDB2CBB00A21D0F /* CTMDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTMDecoder.h; sourceTree = "<group>"; };
 		B6F5A96B1CDB35F100A21D0F /* CTMDecoder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CTMDecoder.mm; sourceTree = "<group>"; };
 		B6F5A9821CDB3AC000A21D0F /* compressMG1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = compressMG1.c; sourceTree = "<group>"; };
@@ -374,7 +372,6 @@
 				026832E71CCF052300BA34F3 /* PDFView.xib in Resources */,
 				B6F5A9601CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf in Resources */,
 				026832E51CCEFC8200BA34F3 /* floorplan.pdf in Resources */,
-				B6F5A9671CDB2BA000A21D0F /* openctm in Resources */,
 				B6F5A95B1CDAFD9C00A21D0F /* 101.0.json in Resources */,
 				026832BC1CCEBA4E00BA34F3 /* Main.storyboard in Resources */,
 			);
