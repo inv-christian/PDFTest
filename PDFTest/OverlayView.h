@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface OverlayView : UIView
-@property (nonatomic, weak) NSMutableArray* elements;
+@property (nonatomic, copy) NSMutableArray* elements;
 
 -(id)initWithFrame:(CGRect)frame;
 -(void)drawRect:(CGRect)rect;

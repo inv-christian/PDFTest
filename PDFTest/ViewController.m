@@ -12,6 +12,10 @@
 #import "Element.h"
 @import GLKit;
 
+static const CGFloat kMinPdfViewScale = 0.25;
+static const CGFloat kMaxPdfViewScale = 5.0;
+
+
 @interface ViewController () <UIScrollViewDelegate, PDFViewProtocol>
 @property (nonatomic,strong) NSURL* pdfURL;
 @property (nonatomic,strong) NSURL* geomURL;
@@ -21,6 +25,7 @@
 @property (nonatomic,strong) PDFView* pdfView;
 @property (nonatomic,strong) OverlayView* overlayView;
 @property (nonatomic,strong) NSMutableArray* elements;
+@property (nonatomic,assign) CGFloat pdfScale;
 
 @end
 
@@ -38,6 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    [self setupPdfScrollView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,10 +68,20 @@
 //        if( self.page != NULL ) {
 //            CGPDFPageRetain( self.page );
 //        }
-        [self loadPdfPageIntoView];
+        self.pdfScale = 1.0;
+        [self loadPdfPageIntoViewFrame:CGPDFPageGetBoxRect( self.page, kCGPDFMediaBox )];
         [self loadGeometries];
     }
 }
+
+-(void)setupPdfScrollView {
+
+    self.pdfScrollView.frame = CGPDFPageGetBoxRect( self.page, kCGPDFMediaBox );
+    self.pdfScrollView.delegate = self;
+    self.pdfScrollView.minimumZoomScale = kMinPdfViewScale;
+    self.pdfScrollView.maximumZoomScale = kMaxPdfViewScale;
+}
+
 
 -(void)convertNSArray:(NSArray*)arr toFloatArray:(float*)out
 {
@@ -200,28 +216,29 @@
     }
 }
 
--(void)loadPdfPageIntoView {
-    CGRect pageRect = CGPDFPageGetBoxRect( self.page, kCGPDFMediaBox );
+-(void)loadPdfPageIntoViewFrame:(CGRect)frame {
     
-    self.pdfView = [[PDFView alloc] initWithFrame:pageRect scale:self.pdfScrollView.contentScaleFactor];
-    [self.pdfView setPage:self.page];
-    [self.pdfScrollView setBackgroundColor:[UIColor grayColor]];
-    self.pdfScrollView.delegate = self;
-    self.pdfView.delegate = self;
-    self.pdfScrollView.minimumZoomScale = 0.25;
-    self.pdfScrollView.maximumZoomScale = 5;
-
-    [self.pdfScrollView addSubview:self.pdfView];
+    PDFView*  pdfView = [[PDFView alloc] initWithFrame:frame scale:self.pdfScale];
+    pdfView.delegate = self;
     
-    self.overlayView = [[OverlayView alloc] initWithFrame:pageRect];
+    [pdfView setPage:self.page];
+    
+    [self.pdfScrollView addSubview:pdfView];
+    self.pdfView = pdfView;
+    self.pdfScrollView.translatesAutoresizingMaskIntoConstraints = NO;
+    [self setPdfPageViewConstraints];
+    
+    self.overlayView = [[OverlayView alloc] initWithFrame:frame];
     [self.pdfView addSubview:self.overlayView];
     
 }
+
 
 -(void)restoreView {
     self.pdfScrollView.zoomScale = 1.0;
     
 }
+
 
 -(void)highlightSelectedView {
     
@@ -242,6 +259,7 @@
 
 -(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
     NSLog(@"%s %f",__func__, scale);
+
 }
 
 
@@ -253,12 +271,35 @@
 
 -(void)onSingleTapped:(PDFView*)view atLocation:(CGPoint)location {
     NSLog(@"Tapped at location %@", NSStringFromCGPoint(location));
+   //   [self.overlayView setNeedsDisplay];
     /* sample code to add overlay view
      Need info to map selected location to element in pdf doc and to add overlay view*/
     //UIView * overlayView = [[UIView alloc]initWithFrame:CGRectMake( location.x-10,location.y-10 , 20, 20)];
     //[overlayView setBackgroundColor:[UIColor yellowColor]];
     //[self.pdfView addSubview:overlayView];
-    
+     
     [self highlightSelectedView];
+}
+
+#pragma mark - auto kayout
+- (void)setPdfPageViewConstraints
+{
+    NSLayoutConstraint *xConstraint = [NSLayoutConstraint constraintWithItem:self.pdfView
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                   relatedBy:NSLayoutRelationEqual
+                                                                      toItem:self.pdfScrollView
+                                                                   attribute:NSLayoutAttributeCenterX
+                                                                  multiplier:1.0
+                                                                    constant:0];
+//    NSLayoutConstraint *yConstraint = [NSLayoutConstraint constraintWithItem:self.pdfView
+//                                                                   attribute:NSLayoutAttributeCenterY
+//                                                                   relatedBy:NSLayoutRelationEqual
+//                                                                      toItem:self.pdfScrollView
+//                                                                   attribute:NSLayoutAttributeCenterY
+//                                                                  multiplier:1.0
+//                                                                    constant:0];
+//    
+    
+    [self.pdfScrollView addConstraints:@[ xConstraint ]];
 }
 @end

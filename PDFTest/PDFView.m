@@ -96,7 +96,7 @@
     }
     
     // Scale the context so that the PDF page is rendered at the correct size for the zoom level.
-   //CGContextScaleCTM(context, self.scale, self.scale);
+    CGContextScaleCTM(context, self.scale, self.scale);
     
     CGContextDrawPDFPage(context, self.pdfPage);
     
