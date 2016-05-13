@@ -7,19 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "ViewInteractionProtocol.h"
 @class PDFView;
-@protocol PDFViewProtocol <NSObject>
 
--(void)onDoubleTapped:(PDFView*)view;
--(void)onSingleTapped:(PDFView*)view atLocation:(CGPoint)location;
-
-@end
 
 @interface PDFView : UIView
 @property (nonatomic,assign) CGPDFPageRef pdfPage;
 @property (nonatomic,assign) CGFloat scale;
-@property (nonatomic,weak)id<PDFViewProtocol> delegate;
+@property (nonatomic,weak)id<ViewInteractionProtocol> delegate;
 
 - (id)initWithFrame:(CGRect)frame scale:(CGFloat)scale;
 - (void)setPage:(CGPDFPageRef)newPage;

@@ -11,20 +11,26 @@
 #import "PDFGeometryViewModel.h"
 
 @interface OverlayView()
-@property (nonatomic, strong) PDFGeometryViewModel* viewModel;
+@property (nonatomic, strong)PDFGeometryViewModel* viewModel;
 @property (nonatomic, assign)BOOL boundingBoxSetup;
 @end
 
 @implementation OverlayView
 
--(id)initWithFrame:(CGRect)frame andPDFGeomViewModel:(PDFGeometryViewModel*)viewModel
+-(instancetype)initWithFrame:(CGRect)frame andPDFGeomViewModel:(PDFGeometryViewModel*)viewModel
 {
     self = [super initWithFrame:frame];
     if (self) {
         self.opaque = NO;
         self.viewModel = viewModel;
+        [self setupGestureRecognizers];
     }
     return self;
+}
+
+-(void)layoutSubviews {
+    [super layoutSubviews];
+    [self setupGestureRecognizers];
 }
 
 -(void)drawRect:(CGRect)rect
@@ -50,7 +56,24 @@
         
     }
     
+}
+
+-(void)setupGestureRecognizers {
+    [self setupDoubleTapGestureRecognizers];
+    [self setupSingleTapGestureRecognizers];
     
+}
+
+
+-(void)setupDoubleTapGestureRecognizers {
+    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onDoubleTap:)];
+    doubleTap.numberOfTapsRequired = 2;
+    [self addGestureRecognizer:doubleTap];
+}
+
+-(void)setupSingleTapGestureRecognizers {
+    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSingleTap:)];
+    [self addGestureRecognizer:singleTap];
 }
 
 
@@ -134,5 +157,24 @@
 {
     for (int i=0; i < 6; i++)
         out[i] = [[arr objectAtIndex:(offset + i)] floatValue];
+}
+
+#pragma mark - gesture recognizer
+-(void)onDoubleTap:(UIGestureRecognizer*)recognizer {
+    NSLog(@"%s",__func__);
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onDoubleTapped:)]) {
+        [self.delegate onDoubleTapped:self];
+    }
+    
+}
+
+-(void)onSingleTap:(UIGestureRecognizer*)recognizer {
+    NSLog(@"%s",__func__);
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onSingleTapped:atLocation:)]) {
+        CGPoint point = [recognizer locationInView:recognizer.view]; // Tap location
+        
+        [self.delegate onSingleTapped:self atLocation:point];
+    }
+    
 }
 @end

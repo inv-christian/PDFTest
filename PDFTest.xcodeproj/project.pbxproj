@@ -62,6 +62,7 @@
 /* Begin PBXFileReference section */
 		022543F01CE5118C00CA6D97 /* PDFGeometryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFGeometryViewModel.h; sourceTree = "<group>"; };
 		022543F11CE5118C00CA6D97 /* PDFGeometryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFGeometryViewModel.m; sourceTree = "<group>"; };
+		022543F31CE64DC200CA6D97 /* ViewInteractionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewInteractionProtocol.h; sourceTree = "<group>"; };
 		026832AE1CCEBA4E00BA34F3 /* PDFTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PDFTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		026832B21CCEBA4E00BA34F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		026832B41CCEBA4E00BA34F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -145,6 +146,76 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		022543F41CE6574F00CA6D97 /* views */ = {
+			isa = PBXGroup;
+			children = (
+				026832E61CCF052300BA34F3 /* PDFView.xib */,
+				026832E81CCF053A00BA34F3 /* PDFView.h */,
+				026832E91CCF053A00BA34F3 /* PDFView.m */,
+				B6F5A9631CDB22EA00A21D0F /* OverlayView.h */,
+				B6F5A9641CDB24A300A21D0F /* OverlayView.m */,
+			);
+			name = views;
+			sourceTree = "<group>";
+		};
+		022543F51CE6576200CA6D97 /* viewmodel */ = {
+			isa = PBXGroup;
+			children = (
+				022543F01CE5118C00CA6D97 /* PDFGeometryViewModel.h */,
+				022543F11CE5118C00CA6D97 /* PDFGeometryViewModel.m */,
+			);
+			name = viewmodel;
+			sourceTree = "<group>";
+		};
+		022543F61CE6576C00CA6D97 /* viewcontrollers */ = {
+			isa = PBXGroup;
+			children = (
+				026832B71CCEBA4E00BA34F3 /* ViewController.h */,
+				026832B81CCEBA4E00BA34F3 /* ViewController.m */,
+			);
+			name = viewcontrollers;
+			sourceTree = "<group>";
+		};
+		022543F71CE6578B00CA6D97 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				B6F5A9A41CDB411B00A21D0F /* Element.h */,
+				B6F5A9A51CDB419500A21D0F /* Element.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
+		022543F81CE6579300CA6D97 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				B6F5A9681CDB2CBB00A21D0F /* CTMDecoder.h */,
+				B6F5A96B1CDB35F100A21D0F /* CTMDecoder.mm */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
+		022543F91CE657AC00CA6D97 /* protocols */ = {
+			isa = PBXGroup;
+			children = (
+				022543F31CE64DC200CA6D97 /* ViewInteractionProtocol.h */,
+			);
+			name = protocols;
+			sourceTree = "<group>";
+		};
+		022543FA1CE657BD00CA6D97 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				B6F5A9551CDAFD9C00A21D0F /* 101.0.json */,
+				B6F5A9561CDAFD9C00A21D0F /* Floor Plan-First Floor.json */,
+				B6F5A9571CDAFD9C00A21D0F /* Floor Plan-Level 2.json */,
+				B6F5A9581CDAFD9C00A21D0F /* geomInfo.json */,
+				B6F5A9591CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf */,
+				B6F5A95A1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf */,
+				026832E41CCEFC8200BA34F3 /* floorplan.pdf */,
+			);
+			name = resources;
+			sourceTree = "<group>";
+		};
 		026832A51CCEBA4E00BA34F3 = {
 			isa = PBXGroup;
 			children = (
@@ -170,26 +241,14 @@
 			isa = PBXGroup;
 			children = (
 				B6F5A9811CDB3AC000A21D0F /* openctm */,
-				026832B41CCEBA4E00BA34F3 /* AppDelegate.h */,
-				026832B51CCEBA4E00BA34F3 /* AppDelegate.m */,
-				026832B71CCEBA4E00BA34F3 /* ViewController.h */,
-				026832B81CCEBA4E00BA34F3 /* ViewController.m */,
-				026832BA1CCEBA4E00BA34F3 /* Main.storyboard */,
-				026832BD1CCEBA4E00BA34F3 /* Assets.xcassets */,
-				026832BF1CCEBA4E00BA34F3 /* LaunchScreen.storyboard */,
-				026832C21CCEBA4E00BA34F3 /* Info.plist */,
+				022543FA1CE657BD00CA6D97 /* resources */,
+				022543F61CE6576C00CA6D97 /* viewcontrollers */,
 				026832B11CCEBA4E00BA34F3 /* Supporting Files */,
-				026832E61CCF052300BA34F3 /* PDFView.xib */,
-				026832E81CCF053A00BA34F3 /* PDFView.h */,
-				026832E91CCF053A00BA34F3 /* PDFView.m */,
-				B6F5A9631CDB22EA00A21D0F /* OverlayView.h */,
-				B6F5A9641CDB24A300A21D0F /* OverlayView.m */,
-				B6F5A9681CDB2CBB00A21D0F /* CTMDecoder.h */,
-				B6F5A96B1CDB35F100A21D0F /* CTMDecoder.mm */,
-				B6F5A9A41CDB411B00A21D0F /* Element.h */,
-				B6F5A9A51CDB419500A21D0F /* Element.m */,
-				022543F01CE5118C00CA6D97 /* PDFGeometryViewModel.h */,
-				022543F11CE5118C00CA6D97 /* PDFGeometryViewModel.m */,
+				022543F41CE6574F00CA6D97 /* views */,
+				022543F81CE6579300CA6D97 /* utils */,
+				022543F71CE6578B00CA6D97 /* model */,
+				022543F51CE6576200CA6D97 /* viewmodel */,
+				022543F91CE657AC00CA6D97 /* protocols */,
 			);
 			path = PDFTest;
 			sourceTree = "<group>";
@@ -197,13 +256,12 @@
 		026832B11CCEBA4E00BA34F3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B6F5A9551CDAFD9C00A21D0F /* 101.0.json */,
-				B6F5A9561CDAFD9C00A21D0F /* Floor Plan-First Floor.json */,
-				B6F5A9571CDAFD9C00A21D0F /* Floor Plan-Level 2.json */,
-				B6F5A9581CDAFD9C00A21D0F /* geomInfo.json */,
-				B6F5A9591CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf */,
-				B6F5A95A1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf */,
-				026832E41CCEFC8200BA34F3 /* floorplan.pdf */,
+				026832B41CCEBA4E00BA34F3 /* AppDelegate.h */,
+				026832B51CCEBA4E00BA34F3 /* AppDelegate.m */,
+				026832BA1CCEBA4E00BA34F3 /* Main.storyboard */,
+				026832BD1CCEBA4E00BA34F3 /* Assets.xcassets */,
+				026832BF1CCEBA4E00BA34F3 /* LaunchScreen.storyboard */,
+				026832C21CCEBA4E00BA34F3 /* Info.plist */,
 				026832B21CCEBA4E00BA34F3 /* main.m */,
 			);
 			name = "Supporting Files";

@@ -7,12 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewInteractionProtocol.h"
 
 @class PDFGeometryViewModel;
 @interface OverlayView : UIView
 @property (nonatomic, copy) NSArray* elements;
 
--(id)initWithFrame:(CGRect)frame andPDFGeomViewModel:(PDFGeometryViewModel*)viewModel;
+@property (nonatomic,weak)id<ViewInteractionProtocol> delegate;
+-(instancetype)initWithFrame:(CGRect)frame andPDFGeomViewModel:(PDFGeometryViewModel*)viewModel;
 -(void)drawRect:(CGRect)rect;
+
 
 @end

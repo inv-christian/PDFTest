@@ -18,7 +18,7 @@ static const CGFloat kMinPdfViewScale = 0.25;
 static const CGFloat kMaxPdfViewScale = 8.0;
 
 
-@interface ViewController () <UIScrollViewDelegate, PDFViewProtocol>
+@interface ViewController () <UIScrollViewDelegate, ViewInteractionProtocol>
 //@property (nonatomic,strong) NSURL* pdfURL;
 //@property (nonatomic,strong) NSURL* geomURL;
 @property (nonatomic,assign)CGPDFDocumentRef pdf;
@@ -26,9 +26,10 @@ static const CGFloat kMaxPdfViewScale = 8.0;
 @property CGPDFPageRef page;
 @property (nonatomic,strong) PDFView* pdfView;
 @property (nonatomic,strong) OverlayView* overlayView;
-//@property (nonatomic,strong) NSMutableArray* elements;
+@property (nonatomic,strong) NSMutableArray* elements;
 @property (nonatomic,assign) CGFloat pdfScale;
 @property (nonatomic, strong)PDFGeometryViewModel* geomViewModel;
+
 @end
 
 @implementation ViewController {
@@ -234,8 +235,9 @@ static const CGFloat kMaxPdfViewScale = 8.0;
     self.pdfView = pdfView;
     self.pdfScrollView.translatesAutoresizingMaskIntoConstraints = NO;
     [self setPdfPageViewConstraints];
-    
     self.overlayView = [[OverlayView alloc] initWithFrame:frame andPDFGeomViewModel:self.geomViewModel];
+    self.overlayView.delegate = self;
+
     [self.pdfView addSubview:self.overlayView];
     
 }
@@ -277,7 +279,7 @@ static const CGFloat kMaxPdfViewScale = 8.0;
 #pragma maerk - UIScrollViewDelegate
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    return self.pdfView;
+    return scrollView.subviews[0];
 }
 
 -(void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view {
@@ -288,17 +290,17 @@ static const CGFloat kMaxPdfViewScale = 8.0;
 
 -(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
     NSLog(@"%s %f",__func__, scale);
-
+    [self.overlayView setNeedsDisplay];
 }
 
 
 
-#pragma mark - PDFViewProtocol 
+#pragma mark - ViewInteractionProtocol
 -(void)onDoubleTapped:(PDFView*)view {
     [self restoreView];
 }
 
--(void)onSingleTapped:(PDFView*)view atLocation:(CGPoint)location {
+-(void)onSingleTapped:(UIView*)view atLocation:(CGPoint)location {
     NSLog(@"Tapped at location %@", NSStringFromCGPoint(location));
    //   [self.overlayView setNeedsDisplay];
     /* sample code to add overlay view
