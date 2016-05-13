@@ -13,6 +13,7 @@
 
 @interface Element()
 @property (nonatomic, strong) PDFGeometryViewModel* viewModel;
+@property (nonatomic, assign) BOOL prevSelection;
 @end
 
 @implementation Element
@@ -27,6 +28,16 @@
         self.geometries = [[NSMutableArray alloc] init];
     }
     return self;
+}
+
+-(void)setSelected:(BOOL)selected {
+    _prevSelection = _selected;
+    _selected = selected;
+    
+}
+
+-(BOOL) selectedStateChanged {
+    return self.prevSelection != self.selected;
 }
 
 -(void)addGeom:(NSString*)base64String
@@ -46,6 +57,14 @@
 
 -(void)draw:(CGContextRef) context
 {
+    CGContextSetLineWidth(context, 2);
+    if (self.selected) {
+        CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
+     
+    }else {
+         CGContextSetStrokeColorWithColor(context, [UIColor clearColor].CGColor);
+    }
+    
     for (NSArray* geom in self.geometries) {
         for (int i=0; i < geom.count; i+= 6) {
             if (i <= geom.count - 6) {

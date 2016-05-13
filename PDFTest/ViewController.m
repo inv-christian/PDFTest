@@ -254,7 +254,7 @@ static const CGFloat kMaxPdfViewScale = 8.0;
     
     [self.geomViewModel.elements enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         Element* element = obj;
-        element.selected = NO;
+      //  element.selected = NO;
         
         float distance = [element distanceToPoint:location viewRect:self.pdfView.bounds];
         if (distance < 5 && distance < minDistance) {
@@ -269,7 +269,7 @@ static const CGFloat kMaxPdfViewScale = 8.0;
     }];
     
     if (closestElement != nil) {
-        closestElement.selected = YES;
+        closestElement.selected = !closestElement.selected;
     }
     
     [self.overlayView setNeedsDisplay];

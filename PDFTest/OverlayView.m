@@ -36,24 +36,17 @@
 -(void)drawRect:(CGRect)rect
 {
     //[self setupBoundingBoxes];
-    
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
     
     for (Element* elem in self.elements) {
         CGContextSaveGState(context);
         
-        CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
-        CGContextSetLineWidth(context, 3);
-        
-        if (elem.selected) {
+        if ([elem selectedStateChanged]) {
             //[self drawElement:elem inContext:context];
             [elem draw:context];
         }
         CGContextStrokePath(context);
         CGContextRestoreGState(context);
-        
-        
     }
     
 }

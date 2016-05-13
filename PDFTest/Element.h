@@ -17,7 +17,7 @@
 @interface Element : NSObject
 
 @property unsigned int elementId;
-@property bool selected;
+@property (nonatomic, assign) BOOL selected;
 @property (nonatomic, strong) NSMutableArray* geometries;
 @property (nonatomic, assign) CGRect boundingBox;
 @property (nonatomic, assign) CGPathRef pathRef;
@@ -27,7 +27,7 @@
 -(void)addGeom:(NSString*)base64String;
 -(void)draw:(CGContextRef) ctx;
 -(float)distanceToPoint:(CGPoint)pt viewRect:(CGRect) rect;
-
+-(BOOL) selectedStateChanged;
 @end
 
 #endif /* Element_h */
