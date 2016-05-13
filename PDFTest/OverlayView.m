@@ -29,7 +29,7 @@
 
 -(void)drawRect:(CGRect)rect
 {
-    [self setupBoundingBoxes];
+    //[self setupBoundingBoxes];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -54,7 +54,7 @@
 }
 
 
--(void)setupBoundingBoxes {
+/*-(void)setupBoundingBoxes {
     if (!self.boundingBoxSetup) {
     
         // we have to draw all the paths in order to compute the bounding boxes of each path...
@@ -96,7 +96,8 @@
         self.boundingBoxSetup = YES;
     }
     
-}
+}*/
+
 //
 //-(void)drawElement:(Element*)element inContext:(CGContextRef)context {
 //    

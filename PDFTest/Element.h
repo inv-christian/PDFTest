@@ -26,6 +26,7 @@
 -(Element*)initWithId:(unsigned int)elementId andPDFGeomViewModel:(PDFGeometryViewModel*)viewModel;
 -(void)addGeom:(NSString*)base64String;
 -(void)draw:(CGContextRef) ctx;
+-(float)distanceToPoint:(CGPoint)pt viewRect:(CGRect) rect;
 
 @end
 

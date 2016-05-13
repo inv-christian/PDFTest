@@ -246,16 +246,30 @@ static const CGFloat kMaxPdfViewScale = 8.0;
     
 }
 
-
 -(void)highlightSelectedElementAtLocation:(CGPoint)location {
+    __block float minDistance = FLT_MAX;
+    __block Element* closestElement = nil;
+    
     [self.geomViewModel.elements enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         Element* element = obj;
-        if (CGRectContainsPoint( element.boundingBox ,location)) {
+        element.selected = NO;
+        
+        float distance = [element distanceToPoint:location viewRect:self.pdfView.bounds];
+        if (distance < 5 && distance < minDistance) {
+            minDistance = distance;
+            closestElement = element;
+        }
+        /*if (CGRectContainsPoint( element.boundingBox ,location)) {
             NSLog(@"%@",NSStringFromCGRect(element.boundingBox) );
             element.selected = YES;
             NSLog(@"Contains point");
-        }
+        }*/
     }];
+    
+    if (closestElement != nil) {
+        closestElement.selected = YES;
+    }
+    
     [self.overlayView setNeedsDisplay];
     
 }
