@@ -75,7 +75,7 @@
                 [self getPoints:geom startOffset:i toArray:arr];
                 
                 GLKVector2 p1 = [self.viewModel convertToPixel:arr inRect:rect];
-                GLKVector2 p2 = [self.viewModel convertToPixel:(arr+3) inRect:rect];\
+                GLKVector2 p2 = [self.viewModel convertToPixel:(arr+3) inRect:rect];
                 
                 float distance = [self lineDistanceToPoint:pt withLineStartPoint:p1 andLineEndPoint:p2];
                 if (distance < minDistance)
