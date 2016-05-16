@@ -290,6 +290,7 @@ static const CGFloat kMaxPdfViewScale = 8.0;
 
 -(void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view atScale:(CGFloat)scale {
     NSLog(@"%s %f",__func__, scale);
+    self.overlayView.scale = scale;
     [self.overlayView setNeedsDisplay];
 }
 

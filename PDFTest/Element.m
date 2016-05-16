@@ -57,7 +57,6 @@
 
 -(void)draw:(CGContextRef) context
 {
-    CGContextSetLineWidth(context, 2);
     if (self.selected) {
         CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
      

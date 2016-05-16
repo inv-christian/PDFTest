@@ -12,6 +12,7 @@
 @class PDFGeometryViewModel;
 @interface OverlayView : UIView
 @property (nonatomic, copy) NSArray* elements;
+@property (nonatomic) float scale;
 
 @property (nonatomic,weak)id<ViewInteractionProtocol> delegate;
 -(instancetype)initWithFrame:(CGRect)frame andPDFGeomViewModel:(PDFGeometryViewModel*)viewModel;

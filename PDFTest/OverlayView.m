@@ -23,6 +23,7 @@
     if (self) {
         self.opaque = NO;
         self.viewModel = viewModel;
+        self.scale = 1.0;
         [self setupGestureRecognizers];
     }
     return self;
@@ -38,16 +39,22 @@
     //[self setupBoundingBoxes];
     CGContextRef context = UIGraphicsGetCurrentContext();
     
+    CGContextSaveGState(context);
+    CGContextSetLineWidth(context, 0.5/self.scale);
+    CGContextSetShouldAntialias(context, NO);
+    CGContextSetAllowsAntialiasing(context, NO);
+    
     for (Element* elem in self.elements) {
-        CGContextSaveGState(context);
         
         if ([elem selectedStateChanged]) {
             //[self drawElement:elem inContext:context];
             [elem draw:context];
         }
         CGContextStrokePath(context);
-        CGContextRestoreGState(context);
+        
     }
+    
+    CGContextRestoreGState(context);
     
 }
 
