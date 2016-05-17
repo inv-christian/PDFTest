@@ -27,7 +27,7 @@ float _viewUpDir[3];
 float _viewCenter[3];
 float _viewOutline[4];
 int _viewScale;
-int _printZoom;
+float _printZoom;
 float _viewOffset[2];
 
 -(instancetype) initWithGeometryURL:(NSURL*)geomInfoURL {
@@ -39,9 +39,8 @@ float _viewOffset[2];
 }
 
 -(void)loadGeomInfo {
-    NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo.json" withExtension:nil];
     NSError* error = nil;
-    NSData* jsonData = [NSData dataWithContentsOfURL:geomInfoURL options:NSDataReadingUncached error:&error];
+    NSData* jsonData = [NSData dataWithContentsOfURL:self.geomInfoURL options:NSDataReadingUncached error:&error];
     if (error) {
         NSLog(@"%@", [error localizedDescription]);
     }
@@ -54,8 +53,8 @@ float _viewOffset[2];
     
     NSArray* planViews = [parsed valueForKey:@"planViews"];
     if (planViews.count > 0) {
-        //NSDictionary* view = planViews.firstObject;
-        NSDictionary* view = [planViews objectAtIndex:1];
+        NSDictionary* view = planViews.firstObject;
+        //NSDictionary* view = [planViews objectAtIndex:1];
         
         self.pdfURL = [[NSBundle mainBundle]URLForResource:[view valueForKey:@"pdf"] withExtension:nil];
         self.geomURL = [[NSBundle mainBundle]URLForResource:[view valueForKey:@"geom"] withExtension:nil];
@@ -88,7 +87,7 @@ float _viewOffset[2];
         
 
         _viewScale = [[view valueForKey:@"ViewScale"] intValue];
-        _printZoom = [[view valueForKey:@"printZoom"] intValue];
+        _printZoom = [[view valueForKey:@"printZoom"] floatValue];
         
         GLKVector2 projViewCenter = [self project2d:_viewCenter withOrigin:_viewOrigin withZdir:_viewDir withYdir:_viewUpDir];
         float outlineMid[2] = {(_viewOutline[0] + _viewOutline[2]) / 2, (_viewOutline[1] + _viewOutline[3]) / 2};
@@ -152,7 +151,7 @@ float _viewOffset[2];
               withZdir:(float*)z
               withYdir:(float*)y
 {
-    GLKVector3 origin = GLKVector3MakeWithArray(o ? o : _viewOrigin);
+    GLKVector3 origin = GLKVector3MakeWithArray(o ? o : _viewCenter);
     GLKVector3 zdir = GLKVector3MakeWithArray(z ? z : _viewDir);
     GLKVector3 ydir = GLKVector3MakeWithArray(y ? y : _viewUpDir);
     GLKVector3 xdir = GLKVector3CrossProduct(ydir, zdir);

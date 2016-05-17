@@ -36,13 +36,13 @@
 
 -(void)drawRect:(CGRect)rect
 {
+    NSLog(@"%s scale:%f",__PRETTY_FUNCTION__,self.scale);
+    
     //[self setupBoundingBoxes];
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     CGContextSaveGState(context);
-    CGContextSetLineWidth(context, 0.5/self.scale);
-    CGContextSetShouldAntialias(context, NO);
-    CGContextSetAllowsAntialiasing(context, NO);
+    CGContextSetLineWidth(context, 5/self.scale);
     
     for (Element* elem in self.elements) {
         

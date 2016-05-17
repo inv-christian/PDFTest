@@ -84,6 +84,8 @@
     CGContextSetFillColorWithColor(context, [[UIColor whiteColor] CGColor]);
     CGContextFillRect(context, self.bounds);
     
+    CGRect pdfRect = CGPDFPageGetBoxRect( self.pdfPage, kCGPDFMediaBox );
+    
     // Flip the context so that the PDF page is rendered right side up.
     CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
     CGContextScaleCTM(context, 1.0, -1.0);
@@ -92,7 +94,7 @@
     if (rotationAngle != 0) {
         CGContextTranslateCTM(context, self.bounds.size.width/2, self.bounds.size.height/2);
         CGContextRotateCTM(context, -rotationAngle * M_PI/180.0);
-        CGContextTranslateCTM(context, -self.bounds.size.width/2, -self.bounds.size.height/2);
+        CGContextTranslateCTM(context, -pdfRect.size.width/2, -pdfRect.size.height/2);
     }
     
     // Scale the context so that the PDF page is rendered at the correct size for the zoom level.

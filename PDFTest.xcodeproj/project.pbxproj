@@ -19,6 +19,10 @@
 		026832E51CCEFC8200BA34F3 /* floorplan.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 026832E41CCEFC8200BA34F3 /* floorplan.pdf */; };
 		026832E71CCF052300BA34F3 /* PDFView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 026832E61CCF052300BA34F3 /* PDFView.xib */; };
 		026832EA1CCF053A00BA34F3 /* PDFView.m in Sources */ = {isa = PBXBuildFile; fileRef = 026832E91CCF053A00BA34F3 /* PDFView.m */; };
+		B649C7F81CE9C2E600477958 /* 1.0.json in Resources */ = {isa = PBXBuildFile; fileRef = B649C7F41CE9C2E600477958 /* 1.0.json */; settings = {ASSET_TAGS = (); }; };
+		B649C7F91CE9C2E600477958 /* geomInfo_racbasic.json in Resources */ = {isa = PBXBuildFile; fileRef = B649C7F51CE9C2E600477958 /* geomInfo_racbasic.json */; settings = {ASSET_TAGS = (); }; };
+		B649C7FA1CE9C2E600477958 /* object-geometry-2d.json in Resources */ = {isa = PBXBuildFile; fileRef = B649C7F61CE9C2E600477958 /* object-geometry-2d.json */; settings = {ASSET_TAGS = (); }; };
+		B649C7FB1CE9C2E600477958 /* rac_basic_sample_project - Floor Plan - Level 1.pdf in Resources */ = {isa = PBXBuildFile; fileRef = B649C7F71CE9C2E600477958 /* rac_basic_sample_project - Floor Plan - Level 1.pdf */; settings = {ASSET_TAGS = (); }; };
 		B6F5A95B1CDAFD9C00A21D0F /* 101.0.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9551CDAFD9C00A21D0F /* 101.0.json */; };
 		B6F5A95C1CDAFD9C00A21D0F /* Floor Plan-First Floor.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9561CDAFD9C00A21D0F /* Floor Plan-First Floor.json */; };
 		B6F5A95D1CDAFD9C00A21D0F /* Floor Plan-Level 2.json in Resources */ = {isa = PBXBuildFile; fileRef = B6F5A9571CDAFD9C00A21D0F /* Floor Plan-Level 2.json */; };
@@ -83,6 +87,10 @@
 		026832E61CCF052300BA34F3 /* PDFView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PDFView.xib; sourceTree = "<group>"; };
 		026832E81CCF053A00BA34F3 /* PDFView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFView.h; sourceTree = "<group>"; };
 		026832E91CCF053A00BA34F3 /* PDFView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFView.m; sourceTree = "<group>"; };
+		B649C7F41CE9C2E600477958 /* 1.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 1.0.json; sourceTree = "<group>"; };
+		B649C7F51CE9C2E600477958 /* geomInfo_racbasic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = geomInfo_racbasic.json; sourceTree = "<group>"; };
+		B649C7F61CE9C2E600477958 /* object-geometry-2d.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "object-geometry-2d.json"; sourceTree = "<group>"; };
+		B649C7F71CE9C2E600477958 /* rac_basic_sample_project - Floor Plan - Level 1.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "rac_basic_sample_project - Floor Plan - Level 1.pdf"; sourceTree = "<group>"; };
 		B6F5A9551CDAFD9C00A21D0F /* 101.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 101.0.json; sourceTree = "<group>"; };
 		B6F5A9561CDAFD9C00A21D0F /* Floor Plan-First Floor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Floor Plan-First Floor.json"; sourceTree = "<group>"; };
 		B6F5A9571CDAFD9C00A21D0F /* Floor Plan-Level 2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Floor Plan-Level 2.json"; sourceTree = "<group>"; };
@@ -205,6 +213,10 @@
 		022543FA1CE657BD00CA6D97 /* resources */ = {
 			isa = PBXGroup;
 			children = (
+				B649C7F41CE9C2E600477958 /* 1.0.json */,
+				B649C7F51CE9C2E600477958 /* geomInfo_racbasic.json */,
+				B649C7F61CE9C2E600477958 /* object-geometry-2d.json */,
+				B649C7F71CE9C2E600477958 /* rac_basic_sample_project - Floor Plan - Level 1.pdf */,
 				B6F5A9551CDAFD9C00A21D0F /* 101.0.json */,
 				B6F5A9561CDAFD9C00A21D0F /* Floor Plan-First Floor.json */,
 				B6F5A9571CDAFD9C00A21D0F /* Floor Plan-Level 2.json */,
@@ -426,6 +438,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6F5A95C1CDAFD9C00A21D0F /* Floor Plan-First Floor.json in Resources */,
+				B649C7F81CE9C2E600477958 /* 1.0.json in Resources */,
 				B6F5A95F1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf in Resources */,
 				026832C11CCEBA4E00BA34F3 /* LaunchScreen.storyboard in Resources */,
 				026832BE1CCEBA4E00BA34F3 /* Assets.xcassets in Resources */,
@@ -433,6 +446,9 @@
 				B6F5A95E1CDAFD9C00A21D0F /* geomInfo.json in Resources */,
 				B6F5A95D1CDAFD9C00A21D0F /* Floor Plan-Level 2.json in Resources */,
 				026832E71CCF052300BA34F3 /* PDFView.xib in Resources */,
+				B649C7FB1CE9C2E600477958 /* rac_basic_sample_project - Floor Plan - Level 1.pdf in Resources */,
+				B649C7F91CE9C2E600477958 /* geomInfo_racbasic.json in Resources */,
+				B649C7FA1CE9C2E600477958 /* object-geometry-2d.json in Resources */,
 				B6F5A9601CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf in Resources */,
 				026832E51CCEFC8200BA34F3 /* floorplan.pdf in Resources */,
 				B6F5A95B1CDAFD9C00A21D0F /* 101.0.json in Resources */,
