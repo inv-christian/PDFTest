@@ -12,7 +12,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CGContext.h>
 #import "ViewController.h"
-@class PDFGeometryViewModel;
+@class PDFDetails;
 
 @interface Element : NSObject
 
@@ -23,7 +23,7 @@
 @property (nonatomic, assign) CGPathRef pathRef;
 
 
--(Element*)initWithId:(unsigned int)elementId andPDFGeomViewModel:(PDFGeometryViewModel*)viewModel;
+-(Element*)initWithId:(unsigned int)elementId andPDFGeomViewModel:(PDFDetails*)viewModel;
 -(void)addGeom:(NSString*)base64String;
 -(void)draw:(CGContextRef) ctx;
 -(float)distanceToPoint:(CGPoint)pt viewRect:(CGRect) rect;

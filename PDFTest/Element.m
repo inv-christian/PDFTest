@@ -12,18 +12,18 @@
 @import GLKit;
 
 @interface Element()
-@property (nonatomic, strong) PDFGeometryViewModel* viewModel;
+@property (nonatomic, strong) PDFDetails* pdfDetails;
 @property (nonatomic, assign) BOOL prevSelection;
 @end
 
 @implementation Element
 
--(Element*)initWithId:(unsigned int)elementId andPDFGeomViewModel:(PDFGeometryViewModel*)viewModel
+-(Element*)initWithId:(unsigned int)elementId andPDFGeomViewModel:(PDFDetails*)viewModel
 {
     self = [super init];
     if (self) {
         self.elementId = elementId;
-        self.viewModel = viewModel;
+        self.pdfDetails = viewModel;
         self.selected = false;
         self.geometries = [[NSMutableArray alloc] init];
     }
@@ -71,8 +71,8 @@
                 float arr[6];
                 [self getPoints:geom startOffset:i toArray:arr];
                 
-                GLKVector2 p1 = [self.viewModel convertToPixel:arr inRect:CGContextGetClipBoundingBox(context)];
-                GLKVector2 p2 = [self.viewModel convertToPixel:(arr+3) inRect:CGContextGetClipBoundingBox(context)];
+                GLKVector2 p1 = [self.pdfDetails convertToPixel:arr inRect:CGContextGetClipBoundingBox(context)];
+                GLKVector2 p2 = [self.pdfDetails convertToPixel:(arr+3) inRect:CGContextGetClipBoundingBox(context)];
                 
                 
                 CGContextMoveToPoint(context, p1.x, p1.y);
@@ -84,6 +84,7 @@
 
 -(float)distanceToPoint:(CGPoint)pt viewRect:(CGRect) rect
 {
+    NSLog(@"%s, rect is %@",__func__,NSStringFromCGRect(rect));
     float minDistance = FLT_MAX;
     for (NSArray* geom in self.geometries) {
         for (int i=0; i < geom.count; i+= 6) {
@@ -92,8 +93,8 @@
                 float arr[6];
                 [self getPoints:geom startOffset:i toArray:arr];
                 
-                GLKVector2 p1 = [self.viewModel convertToPixel:arr inRect:rect];
-                GLKVector2 p2 = [self.viewModel convertToPixel:(arr+3) inRect:rect];
+                GLKVector2 p1 = [self.pdfDetails convertToPixel:arr inRect:rect];
+                GLKVector2 p2 = [self.pdfDetails convertToPixel:(arr+3) inRect:rect];
                 
                 float distance = [self lineDistanceToPoint:pt withLineStartPoint:p1 andLineEndPoint:p2];
                 if (distance < minDistance)

@@ -29,6 +29,14 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 @property (nonatomic,strong) NSMutableArray* elements;
 @property (nonatomic,assign) CGFloat pdfScale;
 @property (nonatomic, strong)PDFGeometryViewModel* geomViewModel;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+@property (nonatomic, assign) NSInteger currentPageIndex;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *forwardButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *titleBarItem;
+
+- (IBAction)onBackTapped:(UIButton *)sender;
+- (IBAction)onForwardTapped:(UIButton *)sender;
 
 @end
 
@@ -56,51 +64,71 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo_racbasic.json" withExtension:nil];
+    NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo.json" withExtension:nil];
+    [self setupPdfScrollView];
     //NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo.json" withExtension:nil];
     self.geomViewModel = [[PDFGeometryViewModel alloc]initWithGeometryURL:geomInfoURL];
-    
+    self.currentPageIndex = 0;
+    self.backButton.enabled = NO;
+    NSInteger numPages =  self.geomViewModel.pdfs.count;
+    if (self.currentPageIndex == numPages -1){
+          self.forwardButton.enabled = NO;
+    }
+    [self displayPdfPageAtCurrentIndex];
     
     //self.pdfURL = [[NSBundle mainBundle]URLForResource:@"floorplan" withExtension:@"pdf"];
-    self.pdf = CGPDFDocumentCreateWithURL( (__bridge CFURLRef) self.geomViewModel .pdfURL );
+}
+
+-(void)displayPdfPageAtCurrentIndex {
+    NSLog(@"%s page : %ld",__func__,(long)self.currentPageIndex);
+    PDFDetails* details = self.geomViewModel.pdfs[self.currentPageIndex];
+    
+    NSURL* pdfUrl = details.pdfURL;
+    self.pdf = CGPDFDocumentCreateWithURL( (__bridge CFURLRef) pdfUrl );
+    self.titleBarItem.title = details.name;
     
     if (self.pdf == NULL) {
         CGPDFDocumentRelease(self.pdf);
     }
     else {
+        self.pageControl.numberOfPages = self.geomViewModel.pdfs.count;
         self.page = CGPDFDocumentGetPage( self.pdf, 1 );
-//        CGPDFDictionaryRef pageDict = CGPDFPageGetDictionary(self.page);
-//        if( self.page != NULL ) {
-//            CGPDFPageRetain( self.page );
-//        }
+        
+        //        CGPDFDictionaryRef pageDict = CGPDFPageGetDictionary(self.page);
+        //        if( self.page != NULL ) {
+        //            CGPDFPageRetain( self.page );
+        //        }
         self.pdfScale = 1.0;
         
         CGRect pdfRect = CGPDFPageGetBoxRect( self.page, kCGPDFMediaBox );
+        
         
         NSInteger rotationAngle = CGPDFPageGetRotationAngle(self.page);
         if (rotationAngle != 0) {
             float midX = pdfRect.size.width / 2;
             float midY = pdfRect.size.height / 2;
             CGAffineTransform trf = CGAffineTransformConcat(
-                                      CGAffineTransformConcat(CGAffineTransformMakeTranslation(-midX, -midY),CGAffineTransformMakeRotation(-rotationAngle * M_PI/180.0)),
-                                      CGAffineTransformMakeTranslation(midX, midY));
+                                                            CGAffineTransformConcat(CGAffineTransformMakeTranslation(-midX, -midY),CGAffineTransformMakeRotation(-rotationAngle * M_PI/180.0)),
+                                                            CGAffineTransformMakeTranslation(midX, midY));
             pdfRect = CGRectApplyAffineTransform(pdfRect, trf);
             pdfRect.origin.x = 0;
             pdfRect.origin.y = 0;
         }
         
         [self loadPdfPageIntoViewFrame:pdfRect];
-
-        self.overlayView.elements = self.geomViewModel.elements ;
         
-        [self setupPdfScrollView];
-      
+        self.pageControl.numberOfPages = CGPDFDocumentGetNumberOfPages(self.pdf);
+        NSArray* elements = details.elements;
+        
+        self.overlayView.elements = elements ;
     }
+
 }
+
 
 -(void)setupPdfScrollView {
 
-    self.pdfScrollView.frame = self.pdfView.bounds;
+  //  self.pdfScrollView.frame = self.pdfView.bounds;
     self.pdfScrollView.delegate = self;
     self.pdfScrollView.minimumZoomScale = kMinPdfViewScale;
     self.pdfScrollView.maximumZoomScale = kMaxPdfViewScale;
@@ -126,15 +154,21 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 -(void)loadPdfPageIntoViewFrame:(CGRect)frame {
     
-    PDFView*  pdfView = [[PDFView alloc] initWithFrame:frame scale:self.pdfScale];
+    if (self.pdfView) {
+        [self.pdfView removeFromSuperview];
+    }
+    
+    PDFView*  pdfView = [[PDFView alloc] initWithFrame:frame scale:1.0];
     pdfView.delegate = self;
     
     [pdfView setPage:self.page];
     
     [self.pdfScrollView addSubview:pdfView];
+    
     self.pdfView = pdfView;
     self.pdfScrollView.translatesAutoresizingMaskIntoConstraints = NO;
-    [self setPdfPageViewConstraints];
+     [self setPdfPageViewConstraints];
+    
     self.overlayView = [[OverlayView alloc] initWithFrame:frame andPDFGeomViewModel:self.geomViewModel];
     self.overlayView.delegate = self;
 
@@ -149,10 +183,13 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 }
 
 -(void)highlightSelectedElementAtLocation:(CGPoint)location {
+    NSLog(@"%s, index %d",__func__,self.currentPageIndex);
     __block float minDistance = FLT_MAX;
     __block Element* closestElement = nil;
+    PDFDetails* details = self.geomViewModel.pdfs[self.currentPageIndex];
+    NSArray* elements = details.elements;
     
-    [self.geomViewModel.elements enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [elements enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         Element* element = obj;
       //  element.selected = NO;
         
@@ -230,8 +267,38 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 //                                                                   attribute:NSLayoutAttributeCenterY
 //                                                                  multiplier:1.0
 //                                                                    constant:0];
-//    
+    
     
     [self.pdfScrollView addConstraints:@[ xConstraint ]];
+}
+
+
+#pragma mark - IBActions
+- (IBAction)onBackTapped:(UIButton *)sender {
+    if (self.currentPageIndex == 0) {
+        return;
+    }
+    self.currentPageIndex = self.currentPageIndex - 1;
+    self.forwardButton.enabled = YES;
+    if (self.currentPageIndex == 0) {
+        self.backButton.enabled = NO;
+    }
+    [self displayPdfPageAtCurrentIndex];
+    
+    
+}
+
+- (IBAction)onForwardTapped:(UIButton *)sender {
+    NSInteger totalNumPages = self.geomViewModel.pdfs.count;
+    if (self.currentPageIndex == totalNumPages-1) {
+        return;
+    }
+    self.backButton.enabled = YES;
+    self.currentPageIndex = self.currentPageIndex + 1;
+    if (self.currentPageIndex ==  totalNumPages-1) {
+        self.forwardButton.enabled = NO;
+    }
+    [self displayPdfPageAtCurrentIndex];
+
 }
 @end

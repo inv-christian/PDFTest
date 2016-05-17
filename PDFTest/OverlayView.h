@@ -10,8 +10,10 @@
 #import "ViewInteractionProtocol.h"
 
 @class PDFGeometryViewModel;
+@class Element;
+
 @interface OverlayView : UIView
-@property (nonatomic, copy) NSArray* elements;
+@property (nonatomic, copy) NSArray<Element*>* elements;
 @property (nonatomic) float scale;
 
 @property (nonatomic,weak)id<ViewInteractionProtocol> delegate;

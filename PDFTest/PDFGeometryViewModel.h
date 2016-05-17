@@ -11,22 +11,36 @@
 
 @import UIKit;
 
+@interface PDFDetails:NSObject
+@property (nonatomic,readonly) NSString* name;
+@property (nonatomic,readonly) NSURL* pdfURL;
+@property (nonatomic,readonly) NSURL* geomURL;
+@property (nonatomic,readonly) NSArray <Element*>* elements;
+
+-(GLKVector2)convertToPixel:(float*)pt3d inRect:(CGRect)rect;
+
+
+@end
+
 @interface PDFGeometryViewModel : NSObject
 
 @property (nonatomic,readonly) NSURL* geomInfoURL;
-@property (nonatomic,readonly) NSURL* pdfURL;
-@property (nonatomic,readonly) NSURL* geomURL;
+@property (nonatomic, readonly) NSArray<PDFDetails*>* pdfs;
 
-@property (nonatomic,readonly) NSArray <Element*>* elements;
+//@property (nonatomic,readonly) NSURL* pdfURL;
+//@property (nonatomic,readonly) NSURL* geomURL;
+//
+//@property (nonatomic,readonly) NSArray <Element*>* elements;
 
 -(instancetype) initWithGeometryURL:(NSURL*)geomInfoURL ;
 
--(GLKVector2)project2d:(float*)pt3d
-            withOrigin:(float*)o
-              withZdir:(float*)z
-              withYdir:(float*)y;
+//-(GLKVector2)project2d:(float*)pt3d
+//            withOrigin:(float*)o
+//              withZdir:(float*)z
+//              withYdir:(float*)y;
+
 
 //-(GLKVector2)convertToPixel:(float*)pt3d inView:(UIView*)view;
--(GLKVector2)convertToPixel:(float*)pt3d inRect:(CGRect)rect;
+//-(GLKVector2)convertToPixel:(float*)pt3d inRect:(CGRect)rect;
 
 @end
