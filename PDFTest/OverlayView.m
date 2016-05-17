@@ -42,7 +42,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     CGContextSaveGState(context);
-    CGContextSetLineWidth(context, 5/self.scale);
+    CGContextSetLineWidth(context, 0.5);
     
     for (Element* elem in self.elements) {
         

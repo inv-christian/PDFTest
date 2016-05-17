@@ -28,7 +28,7 @@
         
         tiledLayer.levelsOfDetail = 4;
         tiledLayer.levelsOfDetailBias = 3;
-        tiledLayer.tileSize = CGSizeMake(200,200);
+        tiledLayer.tileSize = CGSizeMake(700,700);
         
         self.layer.borderColor = [UIColor lightGrayColor].CGColor;
         self.layer.borderWidth = 5;
@@ -42,6 +42,13 @@
 + (Class)layerClass
 {
     return [CATiledLayer class];
+}
+
+-(void)layoutSubviews{
+    NSLog(@"%s",__func__);
+    [super layoutSubviews];
+
+    self.contentScaleFactor = 1;
 }
 
 -(void)setupGestureRecognizers {

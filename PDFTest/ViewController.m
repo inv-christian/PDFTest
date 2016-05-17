@@ -15,7 +15,7 @@
 @import GLKit;
 
 static const CGFloat kMinPdfViewScale = 0.25;
-static const CGFloat kMaxPdfViewScale = 8.0;
+static const CGFloat kMaxPdfViewScale = 10.0;
 
 
 @interface ViewController () <UIScrollViewDelegate, ViewInteractionProtocol>
