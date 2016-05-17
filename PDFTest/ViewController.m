@@ -64,7 +64,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo.json" withExtension:nil];
+    NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo_racbasic.json" withExtension:nil];
     [self setupPdfScrollView];
     //NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo.json" withExtension:nil];
     self.geomViewModel = [[PDFGeometryViewModel alloc]initWithGeometryURL:geomInfoURL];
