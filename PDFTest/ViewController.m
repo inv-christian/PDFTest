@@ -55,7 +55,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo.json" withExtension:nil];
-    [self setupPdfScrollView];
+
     //NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo.json" withExtension:nil];
     self.geomViewModel = [[PDFGeometryViewModel alloc]initWithGeometryURL:geomInfoURL];
     self.currentPageIndex = 0;
@@ -64,6 +64,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
     if (self.currentPageIndex == numPages -1){
           self.forwardButton.enabled = NO;
     }
+    [self setupPdfScrollView];
     [self displayPdfPageAtCurrentIndex];
     
     //self.pdfURL = [[NSBundle mainBundle]URLForResource:@"floorplan" withExtension:@"pdf"];
@@ -71,6 +72,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 -(void)displayPdfPageAtCurrentIndex {
     NSLog(@"%s page : %ld",__func__,(long)self.currentPageIndex);
+ 
     PDFDetails* details = self.geomViewModel.pdfs[self.currentPageIndex];
     
     NSURL* pdfUrl = details.pdfURL;
@@ -91,7 +93,6 @@ static const CGFloat kMaxPdfViewScale = 10.0;
         self.pdfScale = 1.0;
         
         CGRect pdfRect = CGPDFPageGetBoxRect( self.page, kCGPDFMediaBox );
-        
         
         NSInteger rotationAngle = CGPDFPageGetRotationAngle(self.page);
         if (rotationAngle != 0) {
@@ -153,6 +154,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
     self.pdfView.delegate = self;
     
     [self.pdfView setPage:self.page];
+    self.pdfScrollView.zoomScale = 1.0;
     
     [self.pdfScrollView addSubview:self.pdfView];
 
@@ -289,8 +291,9 @@ static const CGFloat kMaxPdfViewScale = 10.0;
     if (self.currentPageIndex == 0) {
         self.backButton.enabled = NO;
     }
-    [self displayPdfPageAtCurrentIndex];
     
+    [self displayPdfPageAtCurrentIndex];
+   
     
 }
 
@@ -304,6 +307,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
     if (self.currentPageIndex ==  totalNumPages-1) {
         self.forwardButton.enabled = NO;
     }
+     
     [self displayPdfPageAtCurrentIndex];
 
 }
