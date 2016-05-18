@@ -144,6 +144,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 -(void)loadPdfPageIntoViewFrame:(CGRect)frame {
     
+    [self.pdfScrollView setFrame:frame];
     if (self.pdfView) {
         [self.pdfView removeFromSuperview];
     }
@@ -238,6 +239,22 @@ static const CGFloat kMaxPdfViewScale = 10.0;
      
     [self highlightSelectedElementAtLocation:location];
 }
+
+-(void)onSwipe:(UIView *)view withDirection:(UISwipeGestureRecognizerDirection)swipeDirection {
+    NSLog(@"%s",__func__);
+    switch (swipeDirection) {
+        case UISwipeGestureRecognizerDirectionLeft:
+             [self onForwardTapped:nil];
+            break;
+        case UISwipeGestureRecognizerDirectionRight:
+            [self onBackTapped:nil];
+            break;
+        default:
+            NSLog(@"Unreciognized swipe gesture: %ld",swipeDirection);
+    }
+   
+}
+
 
 #pragma mark - auto kayout
 - (void)setPdfPageViewConstraints

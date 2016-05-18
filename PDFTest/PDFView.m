@@ -9,7 +9,10 @@
 #import "PDFView.h"
 
 @interface PDFView()
-
+@property (nonnull,strong) UITapGestureRecognizer *doubleTap;
+@property (nonnull,strong) UITapGestureRecognizer *singleTap;
+@property (nonnull,strong) UISwipeGestureRecognizer *swipeLeft;
+@property (nonnull,strong) UISwipeGestureRecognizer *swipeRight ;
 @end
 
 @implementation PDFView
@@ -54,20 +57,40 @@
 -(void)setupGestureRecognizers {
     [self setupDoubleTapGestureRecognizers];
     [self setupSingleTapGestureRecognizers];
+    [self setupSwipeLeftGestureRecognizers];
+    [self setupSwipeRightGestureRecognizers];
 
 }
 
 -(void)setupDoubleTapGestureRecognizers {
-    UITapGestureRecognizer *doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onDoubleTap:)];
-    doubleTap.numberOfTapsRequired = 2;
-    [self addGestureRecognizer:doubleTap];
+    self.doubleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onDoubleTap:)];
+    self.doubleTap.numberOfTapsRequired = 2;
+    [self addGestureRecognizer:self.doubleTap];
 }
 
 -(void)setupSingleTapGestureRecognizers {
-    UITapGestureRecognizer *singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSingleTap:)];
-    [self addGestureRecognizer:singleTap];
+   self.singleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onSingleTap:)];
+    [self addGestureRecognizer:self.singleTap];
 }
 
+-(void)setupSwipeLeftGestureRecognizers {
+    self.swipeLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipeLeft:)];
+    self.swipeLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self addGestureRecognizer:self.swipeLeft];
+}
+
+-(void)setupSwipeRightGestureRecognizers {
+    self.swipeRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onSwipeRight:)];
+    self.swipeRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self addGestureRecognizer:self.swipeRight];
+}
+
+-(void)removeGestureRecognizers {
+    [self removeGestureRecognizer:self.doubleTap];
+    [self removeGestureRecognizer:self.singleTap];
+    [self removeGestureRecognizer:self.swipeRight];
+    [self removeGestureRecognizer:self.swipeLeft];
+}
 
 
 // Set the CGPDFPageRef for the view.
@@ -115,6 +138,7 @@
 
 // Clean up.
 - (void)dealloc {
+    [self removeGestureRecognizers];
     if( self.pdfPage != NULL ) {
         CGPDFPageRelease( self.pdfPage );
     }
@@ -137,6 +161,20 @@
 
         [self.delegate onSingleTapped:self atLocation:point];
     }
-    
+}
+
+-(void)onSwipeLeft:(UIGestureRecognizer*)recognizer {
+    NSLog(@"%s",__func__);
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onSwipe:withDirection:)]) {
+        
+        [self.delegate onSwipe:self withDirection:UISwipeGestureRecognizerDirectionLeft];
+    }
+}
+
+-(void)onSwipeRight:(UIGestureRecognizer*)recognizer {
+    NSLog(@"%s",__func__);
+    if (self.delegate && [self.delegate respondsToSelector:@selector(onSwipe:withDirection:)]) {
+        [self.delegate onSwipe:self withDirection:UISwipeGestureRecognizerDirectionRight];
+    }
 }
 @end
