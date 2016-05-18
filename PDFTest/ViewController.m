@@ -19,8 +19,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 
 @interface ViewController () <UIScrollViewDelegate, ViewInteractionProtocol>
-//@property (nonatomic,strong) NSURL* pdfURL;
-//@property (nonatomic,strong) NSURL* geomURL;
+
 @property (nonatomic,assign)CGPDFDocumentRef pdf;
 @property (weak, nonatomic) IBOutlet UIScrollView *pdfScrollView;
 @property CGPDFPageRef page;
@@ -40,16 +39,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 @end
 
-@implementation ViewController {
-    float _viewOrigin[3];
-    float _viewDir[3];
-    float _viewUpDir[3];
-    float _viewCenter[3];
-    float _viewOutline[4];
-    int _viewScale;
-    int _printZoom;
-    float _viewOffset[2];
-}
+@implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -64,7 +54,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo_racbasic.json" withExtension:nil];
+    NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo.json" withExtension:nil];
     [self setupPdfScrollView];
     //NSURL* geomInfoURL = [[NSBundle mainBundle]URLForResource:@"geomInfo.json" withExtension:nil];
     self.geomViewModel = [[PDFGeometryViewModel alloc]initWithGeometryURL:geomInfoURL];
@@ -158,14 +148,13 @@ static const CGFloat kMaxPdfViewScale = 10.0;
         [self.pdfView removeFromSuperview];
     }
     
-    PDFView*  pdfView = [[PDFView alloc] initWithFrame:frame scale:1.0];
-    pdfView.delegate = self;
+    self.pdfView = [[PDFView alloc] initWithFrame:frame scale:1.0];
+    self.pdfView.delegate = self;
     
-    [pdfView setPage:self.page];
+    [self.pdfView setPage:self.page];
     
-    [self.pdfScrollView addSubview:pdfView];
-    
-    self.pdfView = pdfView;
+    [self.pdfScrollView addSubview:self.pdfView];
+
     self.pdfScrollView.translatesAutoresizingMaskIntoConstraints = NO;
      [self setPdfPageViewConstraints];
     

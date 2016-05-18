@@ -14,7 +14,17 @@
 
 #pragma mark - PDFDetails
 
-@interface PDFDetails()
+@interface PDFDetails() {
+    
+    float _viewOrigin[3];
+    float _viewDir[3];
+    float _viewUpDir[3];
+    float _viewCenter[3];
+    float _viewOutline[4];
+    int _viewScale;
+    float _printZoom;
+    float _viewOffset[2];
+}
 @property (nonatomic,readwrite) NSString* name;
 @property (nonatomic,readwrite) NSURL* pdfURL;
 @property (nonatomic,readwrite) NSURL* geomURL;
@@ -26,21 +36,12 @@
               withZdir:(float*)z
               withYdir:(float*)y;
 
-
 @end
 
 
 
 @implementation PDFDetails
 
-float _viewOrigin[3];
-float _viewDir[3];
-float _viewUpDir[3];
-float _viewCenter[3];
-float _viewOutline[4];
-int _viewScale;
-float _printZoom;
-float _viewOffset[2];
 
 -(instancetype)initWithPlanView:(NSDictionary*)planView{
     self = [super init];
@@ -49,7 +50,6 @@ float _viewOffset[2];
         self.name = [planView valueForKey:@"pdf"];
         self.pdfURL = [[NSBundle mainBundle]URLForResource:self.name withExtension:nil];
         self.geomURL = [[NSBundle mainBundle]URLForResource:[planView valueForKey:@"geom"] withExtension:nil];
-        
         NSArray* viewOriginArray = planView [@"ViewOrigin"];
         [viewOriginArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             _viewOrigin[idx] = [obj floatValue];
@@ -92,6 +92,7 @@ float _viewOffset[2];
         _viewUpDir[0] = -_viewUpDir[0];
         _viewUpDir[1] = -_viewUpDir[1];
         _viewUpDir[2] = -_viewUpDir[2];
+
     }
     return  self;
 }
@@ -110,15 +111,16 @@ float _viewOffset[2];
     return GLKVector2Make(GLKVector3DotProduct(p, xdir), GLKVector3DotProduct(p, ydir));
 }
 
+
 -(NSArray<Element*>*) elements {
     if (!_elements) {
-        _elements = [self loadGeometryElements];
+        [self loadGeometryElements];
     }
     return _elements;
 }
 
--(NSArray<Element*>*)loadGeometryElements {
-    NSMutableArray* elements = [[NSMutableArray alloc] init];
+-(void)loadGeometryElements {
+    NSMutableArray* mutElements = [[NSMutableArray alloc] init];
     
     NSError* error = nil;
     NSData* jsonData = [NSData dataWithContentsOfURL:self.geomURL options:NSDataReadingUncached error:&error];
@@ -143,12 +145,11 @@ float _viewOffset[2];
             [element addGeom:data];
         }
         
-        [elements addObject:element];
+        [mutElements addObject:element];
     }
-    return  elements;
+    self.elements = [mutElements copy];
     
 }
-
 
 -(GLKVector2)convertToPixel:(float*)pt3d inRect:(CGRect)rect
 {
@@ -173,6 +174,8 @@ float _viewOffset[2];
     pt2d.y += midy + offsety;
     return pt2d;
 }
+
+
 @end
 
 
@@ -182,7 +185,6 @@ float _viewOffset[2];
 @property (nonatomic,readwrite) NSURL* geomInfoURL;
 @property (nonatomic,readwrite) NSURL* pdfURL;
 @property (nonatomic,readwrite) NSURL* geomURL;
-//@property (nonatomic,readwrite) NSArray <Element*>* elements;
 @property (nonatomic, readwrite)UIView* pdfView;
 @property (nonatomic, readwrite) NSArray<PDFDetails*>* pdfs;
 
@@ -225,7 +227,9 @@ float _viewOffset[2];
     NSArray* planViews = [parsed valueForKey:@"planViews"];
     
     [planViews enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+      
         [pdfDetailsArray addObject:[[PDFDetails alloc]initWithPlanView:obj]];
+        
   
     }];
     self.pdfs = pdfDetailsArray;
