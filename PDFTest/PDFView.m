@@ -54,6 +54,16 @@
     self.contentScaleFactor = 1;
 }
 
+-(void)setInAnnotationMode:(BOOL)inAnnotationMode {
+    _inAnnotationMode = inAnnotationMode;
+    if (inAnnotationMode) {
+        [self removeGestureRecognizers];
+    }
+    else {
+        [self setupGestureRecognizers];
+    }
+}
+
 -(void)setupGestureRecognizers {
     [self setupDoubleTapGestureRecognizers];
     [self setupSingleTapGestureRecognizers];

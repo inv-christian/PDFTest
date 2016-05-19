@@ -15,6 +15,7 @@
 @interface OverlayView : UIView
 @property (nonatomic, copy) NSArray<Element*>* elements;
 @property (nonatomic) float scale;
+@property (nonatomic, assign)BOOL inAnnotationMode;
 
 @property (nonatomic,weak)id<ViewInteractionProtocol> delegate;
 -(instancetype)initWithFrame:(CGRect)frame andPDFGeomViewModel:(PDFGeometryViewModel*)viewModel;

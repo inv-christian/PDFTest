@@ -15,6 +15,7 @@
 @property (nonatomic,assign) CGPDFPageRef pdfPage;
 @property (nonatomic,assign) CGFloat scale;
 @property (nonatomic,weak)id<ViewInteractionProtocol> delegate;
+@property (nonatomic, assign)BOOL inAnnotationMode;
 
 - (id)initWithFrame:(CGRect)frame scale:(CGFloat)scale;
 - (void)setPage:(CGPDFPageRef)newPage;

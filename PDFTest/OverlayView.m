@@ -10,8 +10,17 @@
 #import "Element.h"
 #import "PDFGeometryViewModel.h"
 
-@interface OverlayView()
+@interface OverlayView() {
+    CGPoint _lastPoint;
+    
+    CGMutablePathRef _currPath;
+    
+    BOOL _didMove;
+
+}
 @property (nonatomic, strong)PDFGeometryViewModel* viewModel;
+@property (nonatomic, strong)UIImageView* annotationView;
+@property (nonatomic, strong)NSMutableArray *currentPaths;
 @property (nonatomic, assign)BOOL boundingBoxSetup;
 @end
 
@@ -22,16 +31,25 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.opaque = NO;
+        self.currentPaths = [[NSMutableArray alloc]initWithCapacity:0];
         self.viewModel = viewModel;
         self.scale = 1.0;
+        self.annotationView  = [self createAnnotationView];
+        [self addSubview:self.annotationView];
         [self setupGestureRecognizers];
     }
     return self;
 }
 
--(void)layoutSubviews {
-    [super layoutSubviews];
-    [self setupGestureRecognizers];
+//-(void)layoutSubviews {
+//    [super layoutSubviews];
+//    [self setupGestureRecognizers];
+//}
+
+- (UIImageView*) createAnnotationView {
+    UIImageView *temp = [[UIImageView alloc] initWithImage:nil];
+    temp.frame = self.frame;
+    return temp;
 }
 
 -(void)drawRect:(CGRect)rect
@@ -51,7 +69,6 @@
             [elem draw:context];
         }
         CGContextStrokePath(context);
-        
     }
     
     CGContextRestoreGState(context);
@@ -158,6 +175,86 @@
     for (int i=0; i < 6; i++)
         out[i] = [[arr objectAtIndex:(offset + i)] floatValue];
 }
+
+- (void) refreshDrawing {
+    UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 1.5f);
+    CGContextRef currentContext = UIGraphicsGetCurrentContext();
+    
+    //Draw previous paths
+    //[annotationStore drawAnnotationsForPage:self.currentPage inContext:currentContext];
+    
+    CGContextSetShouldAntialias(currentContext, YES);
+    CGContextSetLineJoin(currentContext, kCGLineJoinRound);
+ 
+    CGContextSetLineCap(currentContext, kCGLineCapRound);
+    CGContextSetLineWidth(currentContext, 5.0);
+    CGContextSetStrokeColorWithColor(currentContext, [UIColor redColor].CGColor);
+  
+    //Draw Paths
+    for (UIBezierPath *path in self.currentPaths) {
+        CGContextAddPath(currentContext, path.CGPath);
+    }
+    
+    CGContextAddPath(currentContext, _currPath);
+    CGContextStrokePath(currentContext);
+    
+    //Saving
+    self.annotationView.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+}
+
+
+
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (!self.inAnnotationMode) {
+        return;
+    }
+    UITouch *touch = [touches anyObject];
+    _lastPoint = [touch locationInView:self];
+    
+  
+    if (_currPath) {
+        [self.currentPaths addObject:[UIBezierPath bezierPathWithCGPath:_currPath]];
+    }
+    _currPath = CGPathCreateMutable();
+    
+    CGPathMoveToPoint(_currPath, NULL, _lastPoint.x, _lastPoint.y);
+        
+    
+    _didMove = NO;
+}
+
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (!self.inAnnotationMode) {
+        return;
+    }
+    _didMove = YES;
+    UITouch *touch = [touches anyObject];
+    CGPoint currentPoint = [touch locationInView:self];
+    
+    //Update path
+    CGPathAddLineToPoint(_currPath, NULL, currentPoint.x, currentPoint.y);
+    [self refreshDrawing];
+    
+    
+    _lastPoint = currentPoint;
+    
+}
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (!self.inAnnotationMode) {
+        return;
+    }
+    if (!_didMove) {
+        UITouch *touch = [touches anyObject];
+        CGPoint currentPoint = [touch locationInView:self];
+        CGPathAddEllipseInRect(_currPath, NULL, CGRectMake(currentPoint.x - 2.f, currentPoint.y - 2.f, 4.f, 4.f));
+        [self refreshDrawing];
+    }
+    _didMove = NO;
+}
+
+
 
 #pragma mark - gesture recognizer
 -(void)onDoubleTap:(UIGestureRecognizer*)recognizer {

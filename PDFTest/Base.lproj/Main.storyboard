@@ -5,7 +5,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--PDF Viewer-->
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
@@ -28,9 +28,10 @@
                                 <rect key="frame" x="-13" y="72" width="600" height="44"/>
                                 <items>
                                     <barButtonItem id="ezK-rB-klL"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="zlB-jO-5Xz"/>
                                     <barButtonItem image="Back" style="plain" id="sfD-CG-lMa">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="2FK-LU-LmT">
-                                            <rect key="frame" x="30" y="9.5" width="25" height="25"/>
+                                            <rect key="frame" x="244" y="9.5" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="Back"/>
                                             <connections>
@@ -38,16 +39,29 @@
                                             </connections>
                                         </button>
                                     </barButtonItem>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="rc0-xS-D55"/>
-                                    <barButtonItem title="Page" id="FGN-T9-vrZ"/>
-                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="XDw-Q5-5Mq"/>
+                                    <barButtonItem id="FGN-T9-vrZ"/>
+                                    <barButtonItem width="42" style="plain" systemItem="fixedSpace" id="sXx-R3-pjq"/>
                                     <barButtonItem image="Forward" style="plain" id="bmJ-9V-2fA">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rwb-X8-Ycl">
-                                            <rect key="frame" x="555" y="9.5" width="25" height="25"/>
+                                            <rect key="frame" x="331" y="9.5" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="Forward"/>
                                             <connections>
                                                 <action selector="onForwardTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j5b-GF-SIE"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="0hB-Ee-2LJ"/>
+                                    <barButtonItem id="PMj-3X-ect"/>
+                                    <barButtonItem style="plain" id="x0K-0V-t8v">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="52v-My-4ND">
+                                            <rect key="frame" x="555" y="9.5" width="25" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="Edit"/>
+                                            <state key="selected" image="Edit-engaged"/>
+                                            <state key="highlighted" image="Back"/>
+                                            <connections>
+                                                <action selector="annotationTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aYd-Pb-nzC"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -71,8 +85,9 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="PDF Viewer" id="j30-4Q-jKf"/>
+                    <navigationItem key="navigationItem" id="j30-4Q-jKf"/>
                     <connections>
+                        <outlet property="annotationButton" destination="52v-My-4ND" id="7KE-Vj-tyZ"/>
                         <outlet property="backButton" destination="sfD-CG-lMa" id="mwr-fC-Uz5"/>
                         <outlet property="forwardButton" destination="bmJ-9V-2fA" id="GjK-ze-R70"/>
                         <outlet property="pdfScrollView" destination="esr-5Q-5Ba" id="jZT-ge-ggW"/>
@@ -104,6 +119,8 @@
     </scenes>
     <resources>
         <image name="Back" width="25" height="25"/>
+        <image name="Edit" width="25" height="25"/>
+        <image name="Edit-engaged" width="25" height="25"/>
         <image name="Forward" width="25" height="25"/>
     </resources>
 </document>

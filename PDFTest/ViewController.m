@@ -32,7 +32,11 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 @property (nonatomic, assign) NSInteger currentPageIndex;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *forwardButton;
+@property (weak, nonatomic) IBOutlet UIButton *annotationButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *titleBarItem;
+- (IBAction)annotationTapped:(UIButton *)sender;
+
+@property (assign,nonatomic)BOOL inAnnotationMode;
 
 - (IBAction)onBackTapped:(UIButton *)sender;
 - (IBAction)onForwardTapped:(UIButton *)sender;
@@ -64,7 +68,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
     if (self.currentPageIndex == numPages -1){
           self.forwardButton.enabled = NO;
     }
-    [self setupPdfScrollView];
+   
     [self displayPdfPageAtCurrentIndex];
     
     //self.pdfURL = [[NSBundle mainBundle]URLForResource:@"floorplan" withExtension:@"pdf"];
@@ -72,12 +76,15 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 -(void)displayPdfPageAtCurrentIndex {
     NSLog(@"%s page : %ld",__func__,(long)self.currentPageIndex);
+    self.inAnnotationMode = NO;
+    self.annotationButton.selected = NO;
+    [self setupRegularMode];
  
     PDFDetails* details = self.geomViewModel.pdfs[self.currentPageIndex];
     
     NSURL* pdfUrl = details.pdfURL;
     self.pdf = CGPDFDocumentCreateWithURL( (__bridge CFURLRef) pdfUrl );
-    self.titleBarItem.title = details.name;
+    self.navigationItem.title = details.name;
     
     if (self.pdf == NULL) {
         CGPDFDocumentRelease(self.pdf);
@@ -117,12 +124,26 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 }
 
 
--(void)setupPdfScrollView {
+-(void)setupRegularMode {
 
   //  self.pdfScrollView.frame = self.pdfView.bounds;
     self.pdfScrollView.delegate = self;
     self.pdfScrollView.minimumZoomScale = kMinPdfViewScale;
     self.pdfScrollView.maximumZoomScale = kMaxPdfViewScale;
+    self.pdfScrollView.scrollEnabled = YES;
+    self.annotationButton.selected = NO;
+    
+}
+
+-(void)setupAnnotationMode {
+    
+    //  self.pdfScrollView.frame = self.pdfView.bounds;
+    self.pdfScrollView.delegate = self;
+    self.pdfScrollView.minimumZoomScale = 1.0;
+    self.pdfScrollView.maximumZoomScale = 1.0;
+    self.pdfScrollView.scrollEnabled = NO;
+    self.annotationButton.selected = YES;
+    
 }
 
 
@@ -306,9 +327,22 @@ static const CGFloat kMaxPdfViewScale = 10.0;
     self.currentPageIndex = self.currentPageIndex + 1;
     if (self.currentPageIndex ==  totalNumPages-1) {
         self.forwardButton.enabled = NO;
+        
     }
      
     [self displayPdfPageAtCurrentIndex];
 
+}
+- (IBAction)annotationTapped:(UIButton *)sender {
+  
+    self.inAnnotationMode = !self.inAnnotationMode;
+    if (self.inAnnotationMode) {
+        [self setupAnnotationMode];
+    }
+    else {
+        [self setupRegularMode];
+    }
+    self.overlayView.inAnnotationMode = self.inAnnotationMode;
+    self.pdfView.inAnnotationMode = self.inAnnotationMode;
 }
 @end
