@@ -68,7 +68,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
     if (self.currentPageIndex == numPages -1){
           self.forwardButton.enabled = NO;
     }
-   
+    
     [self displayPdfPageAtCurrentIndex];
     
     //self.pdfURL = [[NSBundle mainBundle]URLForResource:@"floorplan" withExtension:@"pdf"];
@@ -166,8 +166,9 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 -(void)loadPdfPageIntoViewFrame:(CGRect)frame {
     
-    [self.pdfScrollView setFrame:frame];
+   // [self.pdfScrollView setFrame:frame];
     if (self.pdfView) {
+        
         [self.pdfView removeFromSuperview];
     }
     
@@ -229,7 +230,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 #pragma maerk - UIScrollViewDelegate
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
 {
-    return scrollView.subviews[0];
+    return self.pdfView;
 }
 
 -(void)scrollViewWillBeginZooming:(UIScrollView *)scrollView withView:(nullable UIView *)view {

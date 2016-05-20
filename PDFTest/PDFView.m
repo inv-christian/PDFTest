@@ -148,6 +148,7 @@
 
 // Clean up.
 - (void)dealloc {
+
     [self removeGestureRecognizers];
     if( self.pdfPage != NULL ) {
         CGPDFPageRelease( self.pdfPage );

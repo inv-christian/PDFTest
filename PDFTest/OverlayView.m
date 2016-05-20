@@ -46,6 +46,11 @@
 //    [self setupGestureRecognizers];
 //}
 
+- (void)dealloc {
+    
+    
+}
+
 - (UIImageView*) createAnnotationView {
     UIImageView *temp = [[UIImageView alloc] initWithImage:nil];
     temp.frame = self.frame;
@@ -180,8 +185,6 @@
     UIGraphicsBeginImageContextWithOptions(self.frame.size, NO, 1.5f);
     CGContextRef currentContext = UIGraphicsGetCurrentContext();
     
-    //Draw previous paths
-    //[annotationStore drawAnnotationsForPage:self.currentPage inContext:currentContext];
     
     CGContextSetShouldAntialias(currentContext, YES);
     CGContextSetLineJoin(currentContext, kCGLineJoinRound);
