@@ -48,8 +48,10 @@
     if (self) {
 
         self.name = [planView valueForKey:@"pdf"];
-        self.pdfURL = [[NSBundle mainBundle]URLForResource:self.name withExtension:nil];
-        self.geomURL = [[NSBundle mainBundle]URLForResource:[planView valueForKey:@"geom"] withExtension:nil];
+        // Right now, loading from bundle.Eventually will fetch from server
+        NSURL* pdlUrlInBundle = [[NSBundle mainBundle]URLForResource:self.name withExtension:nil];
+         self.pdfURL = [self copyFileIntoDocumentsFolder:pdlUrlInBundle]; // This allows us to edit them
+         self.geomURL = [[NSBundle mainBundle]URLForResource:[planView valueForKey:@"geom"] withExtension:nil];
         NSArray* viewOriginArray = planView [@"ViewOrigin"];
         [viewOriginArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             _viewOrigin[idx] = [obj floatValue];
@@ -114,7 +116,11 @@
 
 -(NSArray<Element*>*) elements {
     if (!_elements) {
-        [self loadGeometryElements];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+         [self loadGeometryElements];
+        // TODO: Have a completion handler to indicate when elements are loaded so it can be highlighted
+    });
+       
     }
     return _elements;
 }
@@ -175,6 +181,23 @@
     return pt2d;
 }
 
+
+#pragma mark - helper
+-(NSURL*)copyFileIntoDocumentsFolder:(NSURL*)fileUrl {
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString* docUrl = paths[0];
+    NSURL* newUrl = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/%@",docUrl,self.name]];
+    NSError* error;
+    [[NSFileManager defaultManager]copyItemAtURL:fileUrl toURL:newUrl error:&error];
+    if (error) {
+        if (error.code == 516) {
+            return newUrl;
+        }
+        NSLog(@"Failed to copy file %@ over with error;%@",fileUrl,error);
+        return nil;
+    }
+    return  newUrl;
+}
 
 @end
 

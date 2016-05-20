@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		022543F21CE5118C00CA6D97 /* PDFGeometryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 022543F11CE5118C00CA6D97 /* PDFGeometryViewModel.m */; };
+		0267BF6E1CEFA4E100EC394C /* Elevation - East.json in Resources */ = {isa = PBXBuildFile; fileRef = 0267BF6D1CEFA4E100EC394C /* Elevation - East.json */; };
+		0267BF701CEFA4EA00EC394C /* General Medical - Architecture - Floor Plan - GROUND FLOOR.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0267BF6F1CEFA4EA00EC394C /* General Medical - Architecture - Floor Plan - GROUND FLOOR.pdf */; };
+		0267BF721CEFA4F100EC394C /* genmedical.0.json in Resources */ = {isa = PBXBuildFile; fileRef = 0267BF711CEFA4F100EC394C /* genmedical.0.json */; };
+		0267BF741CEFA4FE00EC394C /* Floor Plan - GROUND FLOOR.json in Resources */ = {isa = PBXBuildFile; fileRef = 0267BF731CEFA4FE00EC394C /* Floor Plan - GROUND FLOOR.json */; };
+		0267BF761CEFA50D00EC394C /* General Medical - Architecture - Elevation - East.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0267BF751CEFA50D00EC394C /* General Medical - Architecture - Elevation - East.pdf */; };
+		0267BF781CEFA51300EC394C /* geomInfo-gemmedical.json in Resources */ = {isa = PBXBuildFile; fileRef = 0267BF771CEFA51300EC394C /* geomInfo-gemmedical.json */; };
 		026832B31CCEBA4E00BA34F3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 026832B21CCEBA4E00BA34F3 /* main.m */; };
 		026832B61CCEBA4E00BA34F3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 026832B51CCEBA4E00BA34F3 /* AppDelegate.m */; };
 		026832B91CCEBA4E00BA34F3 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 026832B81CCEBA4E00BA34F3 /* ViewController.m */; };
@@ -68,6 +74,12 @@
 		022543F11CE5118C00CA6D97 /* PDFGeometryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFGeometryViewModel.m; sourceTree = "<group>"; };
 		022543F31CE64DC200CA6D97 /* ViewInteractionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewInteractionProtocol.h; sourceTree = "<group>"; };
 		0267BF6C1CEF66C800EC394C /* AnnotationsViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationsViewDataSource.h; sourceTree = "<group>"; };
+		0267BF6D1CEFA4E100EC394C /* Elevation - East.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Elevation - East.json"; sourceTree = "<group>"; };
+		0267BF6F1CEFA4EA00EC394C /* General Medical - Architecture - Floor Plan - GROUND FLOOR.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "General Medical - Architecture - Floor Plan - GROUND FLOOR.pdf"; sourceTree = "<group>"; };
+		0267BF711CEFA4F100EC394C /* genmedical.0.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = genmedical.0.json; sourceTree = "<group>"; };
+		0267BF731CEFA4FE00EC394C /* Floor Plan - GROUND FLOOR.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Floor Plan - GROUND FLOOR.json"; sourceTree = "<group>"; };
+		0267BF751CEFA50D00EC394C /* General Medical - Architecture - Elevation - East.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "General Medical - Architecture - Elevation - East.pdf"; sourceTree = "<group>"; };
+		0267BF771CEFA51300EC394C /* geomInfo-gemmedical.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "geomInfo-gemmedical.json"; sourceTree = "<group>"; };
 		026832AE1CCEBA4E00BA34F3 /* PDFTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PDFTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		026832B21CCEBA4E00BA34F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		026832B41CCEBA4E00BA34F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -225,7 +237,13 @@
 				B6F5A9581CDAFD9C00A21D0F /* geomInfo.json */,
 				B6F5A9591CDAFD9C00A21D0F /* SampleHouse - Floor Plan - First Floor.pdf */,
 				B6F5A95A1CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf */,
+				0267BF771CEFA51300EC394C /* geomInfo-gemmedical.json */,
+				0267BF711CEFA4F100EC394C /* genmedical.0.json */,
 				026832E41CCEFC8200BA34F3 /* floorplan.pdf */,
+				0267BF751CEFA50D00EC394C /* General Medical - Architecture - Elevation - East.pdf */,
+				0267BF731CEFA4FE00EC394C /* Floor Plan - GROUND FLOOR.json */,
+				0267BF6F1CEFA4EA00EC394C /* General Medical - Architecture - Floor Plan - GROUND FLOOR.pdf */,
+				0267BF6D1CEFA4E100EC394C /* Elevation - East.json */,
 			);
 			name = resources;
 			sourceTree = "<group>";
@@ -446,15 +464,21 @@
 				026832BE1CCEBA4E00BA34F3 /* Assets.xcassets in Resources */,
 				B6F5A9A11CDB3AC000A21D0F /* readme.txt in Resources */,
 				B6F5A95E1CDAFD9C00A21D0F /* geomInfo.json in Resources */,
+				0267BF761CEFA50D00EC394C /* General Medical - Architecture - Elevation - East.pdf in Resources */,
 				B6F5A95D1CDAFD9C00A21D0F /* Floor Plan-Level 2.json in Resources */,
+				0267BF721CEFA4F100EC394C /* genmedical.0.json in Resources */,
+				0267BF741CEFA4FE00EC394C /* Floor Plan - GROUND FLOOR.json in Resources */,
 				026832E71CCF052300BA34F3 /* PDFView.xib in Resources */,
 				B649C7FB1CE9C2E600477958 /* rac_basic_sample_project - Floor Plan - Level 1.pdf in Resources */,
+				0267BF6E1CEFA4E100EC394C /* Elevation - East.json in Resources */,
 				B649C7F91CE9C2E600477958 /* geomInfo_racbasic.json in Resources */,
 				B649C7FA1CE9C2E600477958 /* object-geometry-2d.json in Resources */,
+				0267BF701CEFA4EA00EC394C /* General Medical - Architecture - Floor Plan - GROUND FLOOR.pdf in Resources */,
 				B6F5A9601CDAFD9C00A21D0F /* SampleHouse - Floor Plan - Level 2.pdf in Resources */,
 				026832E51CCEFC8200BA34F3 /* floorplan.pdf in Resources */,
 				B6F5A95B1CDAFD9C00A21D0F /* 101.0.json in Resources */,
 				026832BC1CCEBA4E00BA34F3 /* Main.storyboard in Resources */,
+				0267BF781CEFA51300EC394C /* geomInfo-gemmedical.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

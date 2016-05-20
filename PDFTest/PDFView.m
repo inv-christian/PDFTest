@@ -189,9 +189,9 @@
     CGContextTranslateCTM(currentContext, 0.0, self.bounds.size.height);
     CGContextScaleCTM(currentContext, 1.0, -1.0);
     
-    CGContextTranslateCTM(currentContext, self.bounds.size.width/2, self.bounds.size.height/2);
-    CGContextRotateCTM(currentContext, -90 * M_PI/180.0);
-    CGContextTranslateCTM(currentContext, -self.bounds.size.width/2, -self.bounds.size.height/2);
+//    CGContextTranslateCTM(currentContext, self.bounds.size.width/2, self.bounds.size.height/2);
+//    CGContextRotateCTM(currentContext, -90 * M_PI/180.0);
+ //   CGContextTranslateCTM(currentContext, -self.bounds.size.width/2, -self.bounds.size.height/2);
 
 
     CGContextSetShouldAntialias(currentContext, YES);
