@@ -55,13 +55,23 @@
                                     <barButtonItem id="PMj-3X-ect"/>
                                     <barButtonItem style="plain" id="x0K-0V-t8v">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="52v-My-4ND">
-                                            <rect key="frame" x="555" y="9.5" width="25" height="25"/>
+                                            <rect key="frame" x="511" y="9.5" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="Edit"/>
                                             <state key="selected" image="Edit-engaged"/>
                                             <state key="highlighted" image="Back"/>
                                             <connections>
                                                 <action selector="annotationTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aYd-Pb-nzC"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="QYl-Dl-GPP">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kSA-ar-Bti">
+                                            <rect key="frame" x="546" y="7" width="34" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Save"/>
+                                            <connections>
+                                                <action selector="onSave:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cbJ-32-2wP"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>

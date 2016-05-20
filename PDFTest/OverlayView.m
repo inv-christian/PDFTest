@@ -20,7 +20,7 @@
 }
 @property (nonatomic, strong)PDFGeometryViewModel* viewModel;
 @property (nonatomic, strong)UIImageView* annotationView;
-@property (nonatomic, strong)NSMutableArray *currentPaths;
+@property (nonatomic, strong)NSMutableArray <UIBezierPath*>*currentPaths;
 @property (nonatomic, assign)BOOL boundingBoxSetup;
 @end
 
@@ -80,6 +80,19 @@
     
 }
 
+
+-(NSArray<UIBezierPath*>*)annotationPaths {
+    if (_currPath) {
+        NSMutableArray* temp = [[NSMutableArray alloc]initWithCapacity:0];
+        [temp addObjectsFromArray:self.currentPaths];
+        [temp addObject:[UIBezierPath bezierPathWithCGPath:_currPath]];
+        return temp;
+    }
+    return  nil;
+ 
+    
+}
+#pragma mark - gesture recognizer helpers
 -(void)setupGestureRecognizers {
     [self setupDoubleTapGestureRecognizers];
     [self setupSingleTapGestureRecognizers];

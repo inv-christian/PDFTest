@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ViewInteractionProtocol.h"
-@class PDFView;
 
+@class PDFView;
 
 @interface PDFView : UIView
 @property (nonatomic,assign) CGPDFPageRef pdfPage;
@@ -17,7 +17,7 @@
 @property (nonatomic,weak)id<ViewInteractionProtocol> delegate;
 @property (nonatomic, assign)BOOL inAnnotationMode;
 
-- (id)initWithFrame:(CGRect)frame scale:(CGFloat)scale;
-- (void)setPage:(CGPDFPageRef)newPage;
-
+-(id)initWithFrame:(CGRect)frame scale:(CGFloat)scale;
+-(void)setPage:(CGPDFPageRef)newPage;
+-(void)drawPdfToFileWithAnnotations:(NSArray<UIBezierPath*>*)annotations  ;
 @end

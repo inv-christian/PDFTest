@@ -40,6 +40,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 - (IBAction)onBackTapped:(UIButton *)sender;
 - (IBAction)onForwardTapped:(UIButton *)sender;
+- (IBAction)onSave:(UIButton *)sender;
 
 @end
 
@@ -303,6 +304,12 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 }
 
 
+
+#pragma mark - AnnotationsViewDataSource
+-(NSArray<UIBezierPath*>*)annotationPaths {
+    return [self.overlayView annotationPaths];
+}
+
 #pragma mark - IBActions
 - (IBAction)onBackTapped:(UIButton *)sender {
     if (self.currentPageIndex == 0) {
@@ -333,6 +340,10 @@ static const CGFloat kMaxPdfViewScale = 10.0;
      
     [self displayPdfPageAtCurrentIndex];
 
+}
+
+- (IBAction)onSave:(UIButton *)sender {
+    [self.pdfView drawPdfToFileWithAnnotations:self.overlayView.annotationPaths];
 }
 - (IBAction)annotationTapped:(UIButton *)sender {
   

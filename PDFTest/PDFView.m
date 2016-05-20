@@ -145,6 +145,57 @@
     CGContextRestoreGState(context);
 }
 
+-(void)drawPdfToFileWithAnnotations:(NSArray<UIBezierPath*>*)annotations {
+    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingString:@"updatedfile.pdf"];
+    CGRect pdfRect = CGPDFPageGetBoxRect( self.pdfPage, kCGPDFMediaBox );
+    
+    UIGraphicsBeginPDFContextToFile(tempPath, CGRectZero, nil);
+    //Create a new page
+    UIGraphicsBeginPDFPageWithInfo(pdfRect, nil);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    
+    // Flip the context so that the PDF page is rendered right side up.
+    CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
+    CGContextScaleCTM(context, 1.0, -1.0);
+    
+    // Scale the context so that the PDF page is rendered at the correct size for the zoom level.
+    CGContextScaleCTM(context, self.scale, self.scale);
+    
+    // draw page
+    CGContextDrawPDFPage(context, self.pdfPage);
+    
+    // draw annotations
+    [self drawAnnotations:annotations inContext:context];
+        
+
+    UIGraphicsEndPDFContext();
+    
+}
+
+-(void)drawAnnotations:(NSArray<UIBezierPath*>*)annotations inContext:(CGContextRef)currentContext {
+    
+    CGContextTranslateCTM(currentContext, 0.0, self.bounds.size.height);
+    CGContextScaleCTM(currentContext, 1.0, -1.0);
+
+    CGContextSetShouldAntialias(currentContext, YES);
+    CGContextSetLineJoin(currentContext, kCGLineJoinRound);
+    
+    CGContextSetLineCap(currentContext, kCGLineCapRound);
+    CGContextSetLineWidth(currentContext, 5.0);
+    CGContextSetStrokeColorWithColor(currentContext, [UIColor redColor].CGColor);
+    
+    //Draw Paths
+    for (UIBezierPath *path in annotations) {
+        CGContextAddPath(currentContext, path.CGPath);
+    }
+    
+     CGContextStrokePath(currentContext);
+
+    
+}
+
 
 // Clean up.
 - (void)dealloc {
