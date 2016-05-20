@@ -19,5 +19,5 @@
 
 -(id)initWithFrame:(CGRect)frame scale:(CGFloat)scale;
 -(void)setPage:(CGPDFPageRef)newPage;
--(void)drawPdfToFileWithAnnotations:(NSArray<UIBezierPath*>*)annotations  ;
+-(void)drawPdfToFile:(NSURL*)fileUrl withAnnotations:(NSArray<UIBezierPath*>*)annotations  ;
 @end

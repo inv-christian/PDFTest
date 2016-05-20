@@ -145,13 +145,14 @@
     CGContextRestoreGState(context);
 }
 
--(void)drawPdfToFileWithAnnotations:(NSArray<UIBezierPath*>*)annotations {
+-(void)drawPdfToFile:(NSURL*)fileUrl withAnnotations:(NSArray<UIBezierPath*>*)annotations  {
+    NSLog(@"file Url is %@",fileUrl);
     NSString *tempPath = [NSTemporaryDirectory() stringByAppendingString:@"updatedfile.pdf"];
     CGRect pdfRect = CGPDFPageGetBoxRect( self.pdfPage, kCGPDFMediaBox );
     
-    UIGraphicsBeginPDFContextToFile(tempPath, CGRectZero, nil);
+    UIGraphicsBeginPDFContextToFile(fileUrl.path, CGRectZero, nil);
     //Create a new page
-    UIGraphicsBeginPDFPageWithInfo(pdfRect, nil);
+    UIGraphicsBeginPDFPageWithInfo(self.bounds, nil);
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -160,6 +161,14 @@
     CGContextTranslateCTM(context, 0.0, self.bounds.size.height);
     CGContextScaleCTM(context, 1.0, -1.0);
     
+    NSInteger rotationAngle = CGPDFPageGetRotationAngle(self.pdfPage);
+    if (rotationAngle != 0) {
+        CGContextTranslateCTM(context, self.bounds.size.width/2, self.bounds.size.height/2);
+        CGContextRotateCTM(context, -rotationAngle * M_PI/180.0);
+        CGContextTranslateCTM(context, -pdfRect.size.width/2, -pdfRect.size.height/2);
+    }
+    
+    
     // Scale the context so that the PDF page is rendered at the correct size for the zoom level.
     CGContextScaleCTM(context, self.scale, self.scale);
     
@@ -167,6 +176,7 @@
     CGContextDrawPDFPage(context, self.pdfPage);
     
     // draw annotations
+
     [self drawAnnotations:annotations inContext:context];
         
 
@@ -178,6 +188,11 @@
     
     CGContextTranslateCTM(currentContext, 0.0, self.bounds.size.height);
     CGContextScaleCTM(currentContext, 1.0, -1.0);
+    
+    CGContextTranslateCTM(currentContext, self.bounds.size.width/2, self.bounds.size.height/2);
+    CGContextRotateCTM(currentContext, -90 * M_PI/180.0);
+    CGContextTranslateCTM(currentContext, -self.bounds.size.width/2, -self.bounds.size.height/2);
+
 
     CGContextSetShouldAntialias(currentContext, YES);
     CGContextSetLineJoin(currentContext, kCGLineJoinRound);

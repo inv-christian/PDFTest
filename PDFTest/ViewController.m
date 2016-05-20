@@ -101,19 +101,19 @@ static const CGFloat kMaxPdfViewScale = 10.0;
         self.pdfScale = 1.0;
         
         CGRect pdfRect = CGPDFPageGetBoxRect( self.page, kCGPDFMediaBox );
-        
-        NSInteger rotationAngle = CGPDFPageGetRotationAngle(self.page);
-        if (rotationAngle != 0) {
-            float midX = pdfRect.size.width / 2;
-            float midY = pdfRect.size.height / 2;
-            CGAffineTransform trf = CGAffineTransformConcat(
-                                                            CGAffineTransformConcat(CGAffineTransformMakeTranslation(-midX, -midY),CGAffineTransformMakeRotation(-rotationAngle * M_PI/180.0)),
-                                                            CGAffineTransformMakeTranslation(midX, midY));
-            pdfRect = CGRectApplyAffineTransform(pdfRect, trf);
-            pdfRect.origin.x = 0;
-            pdfRect.origin.y = 0;
-        }
-        
+//        
+//        NSInteger rotationAngle = CGPDFPageGetRotationAngle(self.page);
+//        if (rotationAngle != 0) {
+//            float midX = pdfRect.size.width / 2;
+//            float midY = pdfRect.size.height / 2;
+//            CGAffineTransform trf = CGAffineTransformConcat(
+//                                                            CGAffineTransformConcat(CGAffineTransformMakeTranslation(-midX, -midY),CGAffineTransformMakeRotation(-rotationAngle * M_PI/180.0)),
+//                                                            CGAffineTransformMakeTranslation(midX, midY));
+//            pdfRect = CGRectApplyAffineTransform(pdfRect, trf);
+//            pdfRect.origin.x = 0;
+//            pdfRect.origin.y = 0;
+//        }
+//        
         [self loadPdfPageIntoViewFrame:pdfRect];
         
         self.pageControl.numberOfPages = CGPDFDocumentGetNumberOfPages(self.pdf);
@@ -343,7 +343,11 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 }
 
 - (IBAction)onSave:(UIButton *)sender {
-    [self.pdfView drawPdfToFileWithAnnotations:self.overlayView.annotationPaths];
+    PDFDetails* details = self.geomViewModel.pdfs[self.currentPageIndex];
+    
+    NSURL* pdfUrl = details.pdfURL;
+
+    [self.pdfView drawPdfToFile:pdfUrl withAnnotations:self.overlayView.annotationPaths];
 }
 - (IBAction)annotationTapped:(UIButton *)sender {
   
