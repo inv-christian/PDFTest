@@ -160,11 +160,18 @@ static const CGFloat kAnnotationTextFieldHeight = 50.0f;
     _inTextAnnotationMode = inTextAnnotationMode;
     if (!inTextAnnotationMode) {
         [self.textAnnotationView resignFirstResponder];
+        
         [self.textAnnotationView removeFromSuperview];
-   
-        [self.currentAnnotationView setHidden:YES];
+            [self.currentAnnotationView setHidden:YES];
         [self.currentAnnotationView removeFromSuperview];
-  
+        CGRect textViewFrame = self.textAnnotationView.frame;
+        textViewFrame.origin.x = CGRectGetMinX(self.currentAnnotationView.frame) + 10;
+        textViewFrame.origin.y = CGRectGetMinY(self.currentAnnotationView.frame) + 10;
+     
+        self.textAnnotationView.frame = textViewFrame;
+        [self addSubview:self.textAnnotationView];
+        
+
     }
    
 }
