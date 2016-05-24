@@ -46,20 +46,14 @@ static const CGFloat kAnnotationTextFieldHeight = 50.0f;
         self.drawAnnotationView  = [self createAnnotationView];
         [self addSubview:self.drawAnnotationView];
         
-      //  self.textAnnotationView = [self createTextAnnotationView];
         [self addSubview:self.textAnnotationView];
-        
         self.currentAnnotationView = nil;
-      //   [self addSubview:self.currentAnnotationView];
-       // [self setupGestureRecognizers];
+
     }
     return self;
 }
 
-//-(void)layoutSubviews {
-//    [super layoutSubviews];
-//    [self setupGestureRecognizers];
-//}
+
 
 - (void)dealloc {
     
@@ -84,10 +78,7 @@ static const CGFloat kAnnotationTextFieldHeight = 50.0f;
 -(AnnotationView*)createCurrentAnnotationView {
     AnnotationView* currView = [[AnnotationView alloc]initWithFrame:CGRectMake(0, 0, kAnnotationTextFieldWidth, kAnnotationTextFieldHeight)];
     [self.currentAnnotationView setHidden:YES];
- //  [self.currentAnnotationView.layer needsDisplayOnBoundsChange];
-//    self.currentAnnotationView.backgroundColor = [UIColor colorWithRed:214.0/255 green:214.0/255 blue:214.0/255 alpha:1.0];
-//    self.currentAnnotationView.backgroundColor = [UIColor redColor];
-//    self.currentAnnotationView.layer.cornerRadius = 2.0;
+
     
     return currView;
 }
@@ -111,12 +102,10 @@ static const CGFloat kAnnotationTextFieldHeight = 50.0f;
         CGContextStrokePath(context);
     }
     
-  
-    
     CGContextRestoreGState(context);
-    if (self.inTextAnnotationMode) {
-        [self.currentAnnotationView setNeedsDisplay ];
-    }
+//    if (self.inTextAnnotationMode) {
+//        [self.currentAnnotationView setNeedsDisplay ];
+//    }
     
 }
 
@@ -135,8 +124,8 @@ static const CGFloat kAnnotationTextFieldHeight = 50.0f;
 }
 
 -(NSArray<UITextView*>*)annotationTexts {
-    if (self.textAnnotationView) {
-        NSMutableArray* temp = [[NSMutableArray alloc]initWithCapacity:0];
+    if (self.inTextAnnotationMode) {
+          NSMutableArray* temp = [[NSMutableArray alloc]initWithCapacity:0];
         [temp addObjectsFromArray:self.texts];
         
         
@@ -151,8 +140,7 @@ static const CGFloat kAnnotationTextFieldHeight = 50.0f;
         [temp addObject:tempText];
         return temp;
     }
-    return  nil;
-    
+    return nil;
     
 }
 
@@ -160,21 +148,38 @@ static const CGFloat kAnnotationTextFieldHeight = 50.0f;
     _inTextAnnotationMode = inTextAnnotationMode;
     if (!inTextAnnotationMode) {
         [self.textAnnotationView resignFirstResponder];
+        [self addCurrentAnnotationText];
         
         [self.textAnnotationView removeFromSuperview];
-            [self.currentAnnotationView setHidden:YES];
         [self.currentAnnotationView removeFromSuperview];
+        
         CGRect textViewFrame = self.textAnnotationView.frame;
         textViewFrame.origin.x = CGRectGetMinX(self.currentAnnotationView.frame) + 10;
         textViewFrame.origin.y = CGRectGetMinY(self.currentAnnotationView.frame) + 10;
-     
-        self.textAnnotationView.frame = textViewFrame;
-        [self addSubview:self.textAnnotationView];
+        UITextView* annotationView = [[UITextView alloc]initWithFrame:textViewFrame];
+        annotationView.text = self.textAnnotationView.text;
+  
+        [self addSubview:annotationView];
+        
+        self.currentAnnotationView = nil;
+        self.textAnnotationView = nil;
         
 
     }
    
 }
+
+-(void)addCurrentAnnotationText {
+    CGRect textViewFrame = self.textAnnotationView.frame;
+    textViewFrame.origin.x = CGRectGetMinX(self.currentAnnotationView.frame) + 10;
+    textViewFrame.origin.y = CGRectGetMinY(self.currentAnnotationView.frame) + 10;
+    
+    UITextView* tempText = [[UITextView alloc]initWithFrame:textViewFrame];
+    tempText.text = self.textAnnotationView.text;
+    [self.texts addObject:tempText];
+
+}
+
 #pragma mark - gesture recognizer helpers
 -(void)setupGestureRecognizers {
     [self setupDoubleTapGestureRecognizers];

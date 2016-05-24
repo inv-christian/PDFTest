@@ -372,24 +372,30 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 - (IBAction)onSave:(UIButton *)sender {
     PDFDetails* details = self.geomViewModel.pdfs[self.currentPageIndex];
-    [self resetAnnotationMode];
     NSURL* pdfUrl = details.pdfURL;
 
     [self.pdfView drawPdfToFile:pdfUrl withAnnotations:self.overlayView.annotationPaths andTextAnnotations:self.overlayView.annotationTexts];
+    [self resetAnnotationMode];
+    
 }
 
 -(void)resetAnnotationMode {
-    self.inTextAnnotationMode = !self.inTextAnnotationMode;
-    self.inDrawAnnotationMode = !self.inDrawAnnotationMode;
-    
-    [self setupRegularMode:ANNOTATIONMODE_DRAW];
-    [self setupRegularMode:ANNOTATIONMODE_TEXT];
-    
-    self.overlayView.inTextAnnotationMode = self.inTextAnnotationMode;
-    self.pdfView.inAnnotationMode = self.inTextAnnotationMode;
-    
-    self.overlayView.inTextAnnotationMode = self.inDrawAnnotationMode;
-    self.pdfView.inAnnotationMode = self.inDrawAnnotationMode;
+    if (self.inTextAnnotationMode) {
+        self.inTextAnnotationMode = !self.inTextAnnotationMode;
+        [self setupRegularMode:ANNOTATIONMODE_TEXT];
+        
+        self.overlayView.inTextAnnotationMode = self.inTextAnnotationMode;
+        self.pdfView.inAnnotationMode = self.inTextAnnotationMode;
+    }
+    if (self.inDrawAnnotationMode) {
+        self.inDrawAnnotationMode = !self.inDrawAnnotationMode;
+        
+        [self setupRegularMode:ANNOTATIONMODE_DRAW];
+
+     
+        self.overlayView.inTextAnnotationMode = self.inDrawAnnotationMode;
+        self.pdfView.inAnnotationMode = self.inDrawAnnotationMode;
+    }
 
 }
 - (IBAction)textAnnotationTapped:(UIButton *)sender {

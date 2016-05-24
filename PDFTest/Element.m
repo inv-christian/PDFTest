@@ -57,6 +57,7 @@
 
 -(void)draw:(CGContextRef) context
 {
+    NSLog(@"%s",__func__);
     if (self.selected) {
         CGContextSetStrokeColorWithColor(context, [UIColor yellowColor].CGColor);
      

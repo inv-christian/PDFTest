@@ -116,6 +116,9 @@
 
 -(NSArray<Element*>*) elements {
     if (!_elements) {
+        //
+        
+       // [self loadGeometryElements];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
          [self loadGeometryElements];
         // TODO: Have a completion handler to indicate when elements are loaded so it can be highlighted
