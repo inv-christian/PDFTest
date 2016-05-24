@@ -29,6 +29,7 @@
 @property (nonatomic,readwrite) NSURL* pdfURL;
 @property (nonatomic,readwrite) NSURL* geomURL;
 @property (nonatomic,readwrite) NSArray <Element*>* elements;
+@property (nonatomic,readwrite) BOOL onGeometryProcessed;
 
 -(instancetype)initWithPlanView:(NSDictionary*)planView;
 -(GLKVector2)project2d:(float*)pt3d
@@ -98,6 +99,19 @@
     }
     return  self;
 }
+//
+//-(void)processGeometry:(void(^)(NSArray<Element*>*))handler {
+//    if (self.elements) {
+//        handler(self.elements);
+//    }
+//    else {
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+//            [self loadGeometryElements];
+//            // TODO: Have a completion handler to indicate when elements are loaded so it can be highlighted
+//            
+//        });
+//    }
+//}
 
 -(GLKVector2)project2d:(float*)pt3d
             withOrigin:(float*)o
@@ -114,49 +128,55 @@
 }
 
 
--(NSArray<Element*>*) elements {
-    if (!_elements) {
-        //
-        
-       // [self loadGeometryElements];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
-         [self loadGeometryElements];
-        // TODO: Have a completion handler to indicate when elements are loaded so it can be highlighted
-    });
-       
-    }
-    return _elements;
-}
+//-(NSArray<Element*>*) elements {
+//    if (!_elements) {
+//
+//        
+//       // [self loadGeometryElements];
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+//         [self loadGeometryElements];
+//        // TODO: Have a completion handler to indicate when elements are loaded so it can be highlighted
+//    });
+//       
+//    }
+//    return _elements;
+//}
 
--(void)loadGeometryElements {
-    NSMutableArray* mutElements = [[NSMutableArray alloc] init];
-    
-    NSError* error = nil;
-    NSData* jsonData = [NSData dataWithContentsOfURL:self.geomURL options:NSDataReadingUncached error:&error];
-    if (error) {
-        NSLog(@"%@", [error localizedDescription]);
+-(void)loadGeometryElementsWithCompletionHandler:(void(^)(NSArray<Element*>*))handler {
+    if (self.elements) {
+        handler(self.elements);
     }
-    
-    error = nil;
-    NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
-    if (error) {
-        NSLog(@"%@", [error localizedDescription]);
-    }
-    
-    for (NSDictionary* elem in [parsed valueForKey:@"geometries"]) {
-        unsigned int elemId = [[elem valueForKey:@"elementId"] intValue];
-        NSLog(@"%s : element Id :%d",__func__,elemId);
-        Element* element = [[Element alloc] initWithId:elemId andPDFGeomViewModel:self];
+    else {
+        NSMutableArray* mutElements = [[NSMutableArray alloc] init];
         
-        NSArray* geoms = [elem valueForKey:@"geometry"];
-        for (NSDictionary* geom in geoms) {
-            NSString* data = [geom valueForKey:@"data"];
-            [element addGeom:data];
+        NSError* error = nil;
+        NSData* jsonData = [NSData dataWithContentsOfURL:self.geomURL options:NSDataReadingUncached error:&error];
+        if (error) {
+            NSLog(@"%@", [error localizedDescription]);
         }
         
-        [mutElements addObject:element];
+        error = nil;
+        NSDictionary *parsed = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+        if (error) {
+            NSLog(@"%@", [error localizedDescription]);
+        }
+        
+        for (NSDictionary* elem in [parsed valueForKey:@"geometries"]) {
+            unsigned int elemId = [[elem valueForKey:@"elementId"] intValue];
+            NSLog(@"%s : element Id :%d",__func__,elemId);
+            Element* element = [[Element alloc] initWithId:elemId andPDFGeomViewModel:self];
+            
+            NSArray* geoms = [elem valueForKey:@"geometry"];
+            for (NSDictionary* geom in geoms) {
+                NSString* data = [geom valueForKey:@"data"];
+                [element addGeom:data];
+            }
+            
+            [mutElements addObject:element];
+        }
+        self.elements = mutElements ;
+        handler(self.elements);
     }
-    self.elements = [mutElements copy];
     
 }
 

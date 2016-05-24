@@ -96,17 +96,13 @@ static const CGFloat kAnnotationTextFieldHeight = 50.0f;
     for (Element* elem in self.elements) {
         
         if ([elem selectedStateChanged]) {
-            //[self drawElement:elem inContext:context];
             [elem draw:context];
         }
         CGContextStrokePath(context);
     }
     
     CGContextRestoreGState(context);
-//    if (self.inTextAnnotationMode) {
-//        [self.currentAnnotationView setNeedsDisplay ];
-//    }
-    
+
 }
 
 

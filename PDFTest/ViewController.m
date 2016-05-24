@@ -126,9 +126,13 @@ static const CGFloat kMaxPdfViewScale = 10.0;
         [self loadPdfPageIntoViewFrame:pdfRect];
         
         self.pageControl.numberOfPages = CGPDFDocumentGetNumberOfPages(self.pdf);
-        NSArray* elements = details.elements;
-        
-        self.overlayView.elements = elements ;
+        [self.geomViewModel addObserver:self forKeyPath:@"onGeometryProcessed" options:NSKeyValueObservingOptionNew context:nil];
+        [details loadGeometryElementsWithCompletionHandler:^(NSArray<Element *> *elements) {
+            NSLog(@"Loading geom ");
+            self.overlayView.elements = elements ;
+        }];
+      
+       
         
         if (self.page != NULL) {
             CGPDFPageRelease(self.page);
@@ -227,32 +231,43 @@ static const CGFloat kMaxPdfViewScale = 10.0;
 
 -(void)highlightSelectedElementAtLocation:(CGPoint)location {
     NSLog(@"%s, index %d",__func__,self.currentPageIndex);
-    __block float minDistance = FLT_MAX;
-    __block Element* closestElement = nil;
-    PDFDetails* details = self.geomViewModel.pdfs[self.currentPageIndex];
-    NSArray* elements = details.elements;
-    
-    [elements enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        Element* element = obj;
-      //  element.selected = NO;
+    if (self.overlayView.elements) {
+        __block float minDistance = FLT_MAX;
+        __block Element* closestElement = nil;
+        PDFDetails* details = self.geomViewModel.pdfs[self.currentPageIndex];
+        NSArray* elements = details.elements;
         
-        float distance = [element distanceToPoint:location viewRect:self.pdfView.bounds];
-        if (distance < 5 && distance < minDistance) {
-            minDistance = distance;
-            closestElement = element;
+        [elements enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            Element* element = obj;
+          //  element.selected = NO;
+            
+            float distance = [element distanceToPoint:location viewRect:self.pdfView.bounds];
+            if (distance < 5 && distance < minDistance) {
+                minDistance = distance;
+                closestElement = element;
+            }
+            /*if (CGRectContainsPoint( element.boundingBox ,location)) {
+                NSLog(@"%@",NSStringFromCGRect(element.boundingBox) );
+                element.selected = YES;
+                NSLog(@"Contains point");
+            }*/
+        }];
+        
+        if (closestElement != nil) {
+            closestElement.selected = !closestElement.selected;
         }
-        /*if (CGRectContainsPoint( element.boundingBox ,location)) {
-            NSLog(@"%@",NSStringFromCGRect(element.boundingBox) );
-            element.selected = YES;
-            NSLog(@"Contains point");
-        }*/
-    }];
-    
-    if (closestElement != nil) {
-        closestElement.selected = !closestElement.selected;
+        
+        [self.overlayView setNeedsDisplay];
     }
-    
-    [self.overlayView setNeedsDisplay];
+    else {
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil message:@"Geometry still loading. Element selection cannot be done until thats completed" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alert addAction:action];
+        [self presentViewController:alert animated:YES completion:nil];
+    }
     
 }
 

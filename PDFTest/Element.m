@@ -31,12 +31,16 @@
 }
 
 -(void)setSelected:(BOOL)selected {
+    
     _prevSelection = _selected;
     _selected = selected;
     
 }
 
 -(BOOL) selectedStateChanged {
+    if (!self.prevSelection) {
+        return self.selected;
+    }
     return self.prevSelection != self.selected;
 }
 
