@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0200EA451CF4B2E0003B0264 /* AnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0200EA441CF4B2E0003B0264 /* AnnotationView.m */; };
 		022543F21CE5118C00CA6D97 /* PDFGeometryViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 022543F11CE5118C00CA6D97 /* PDFGeometryViewModel.m */; };
 		0267BF6E1CEFA4E100EC394C /* Elevation - East.json in Resources */ = {isa = PBXBuildFile; fileRef = 0267BF6D1CEFA4E100EC394C /* Elevation - East.json */; };
 		0267BF701CEFA4EA00EC394C /* General Medical - Architecture - Floor Plan - GROUND FLOOR.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 0267BF6F1CEFA4EA00EC394C /* General Medical - Architecture - Floor Plan - GROUND FLOOR.pdf */; };
@@ -70,6 +71,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0200EA431CF4B2E0003B0264 /* AnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnnotationView.h; sourceTree = "<group>"; };
+		0200EA441CF4B2E0003B0264 /* AnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnnotationView.m; sourceTree = "<group>"; };
 		022543F01CE5118C00CA6D97 /* PDFGeometryViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PDFGeometryViewModel.h; sourceTree = "<group>"; };
 		022543F11CE5118C00CA6D97 /* PDFGeometryViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDFGeometryViewModel.m; sourceTree = "<group>"; };
 		022543F31CE64DC200CA6D97 /* ViewInteractionProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewInteractionProtocol.h; sourceTree = "<group>"; };
@@ -175,6 +178,8 @@
 				026832E91CCF053A00BA34F3 /* PDFView.m */,
 				B6F5A9631CDB22EA00A21D0F /* OverlayView.h */,
 				B6F5A9641CDB24A300A21D0F /* OverlayView.m */,
+				0200EA431CF4B2E0003B0264 /* AnnotationView.h */,
+				0200EA441CF4B2E0003B0264 /* AnnotationView.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -509,6 +514,7 @@
 				B6F5A99E1CDB3AC000A21D0F /* LzmaDec.c in Sources */,
 				026832B91CCEBA4E00BA34F3 /* ViewController.m in Sources */,
 				B6F5A9A31CDB3AC000A21D0F /* stream.c in Sources */,
+				0200EA451CF4B2E0003B0264 /* AnnotationView.m in Sources */,
 				B6F5A9991CDB3AC000A21D0F /* compressMG1.c in Sources */,
 				B6F5A96C1CDB35F100A21D0F /* CTMDecoder.mm in Sources */,
 				B6F5A9A21CDB3AC000A21D0F /* openctm.c in Sources */,

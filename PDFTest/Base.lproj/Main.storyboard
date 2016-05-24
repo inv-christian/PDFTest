@@ -55,13 +55,25 @@
                                     <barButtonItem id="PMj-3X-ect"/>
                                     <barButtonItem style="plain" id="x0K-0V-t8v">
                                         <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="52v-My-4ND">
-                                            <rect key="frame" x="511" y="9.5" width="25" height="25"/>
+                                            <rect key="frame" x="476" y="9.5" width="25" height="25"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <state key="normal" image="Edit"/>
                                             <state key="selected" image="Edit-engaged"/>
-                                            <state key="highlighted" image="Back"/>
+                                            <state key="highlighted" image="Edit-engaged"/>
                                             <connections>
                                                 <action selector="annotationTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aYd-Pb-nzC"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" id="BeG-Bd-O4d">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3Fx-A0-jA2">
+                                            <rect key="frame" x="511" y="9.5" width="25" height="25"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" image="Text"/>
+                                            <state key="selected" image="Text-engaged"/>
+                                            <state key="highlighted" image="Text-engaged"/>
+                                            <connections>
+                                                <action selector="textAnnotationTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="z31-FP-sSr"/>
                                             </connections>
                                         </button>
                                     </barButtonItem>
@@ -101,6 +113,7 @@
                         <outlet property="backButton" destination="sfD-CG-lMa" id="mwr-fC-Uz5"/>
                         <outlet property="forwardButton" destination="bmJ-9V-2fA" id="GjK-ze-R70"/>
                         <outlet property="pdfScrollView" destination="esr-5Q-5Ba" id="jZT-ge-ggW"/>
+                        <outlet property="textAnnotationButton" destination="3Fx-A0-jA2" id="l4d-y3-udY"/>
                         <outlet property="titleBarItem" destination="FGN-T9-vrZ" id="N4P-dt-7RH"/>
                     </connections>
                 </viewController>
@@ -132,5 +145,7 @@
         <image name="Edit" width="25" height="25"/>
         <image name="Edit-engaged" width="25" height="25"/>
         <image name="Forward" width="25" height="25"/>
+        <image name="Text" width="25" height="25"/>
+        <image name="Text-engaged" width="25" height="25"/>
     </resources>
 </document>

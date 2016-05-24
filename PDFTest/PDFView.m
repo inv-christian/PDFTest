@@ -105,8 +105,12 @@
 
 // Set the CGPDFPageRef for the view.
 - (void)setPage:(CGPDFPageRef)newPage {
-    if( self.pdfPage != NULL ) CGPDFPageRelease( self.pdfPage );
-    if( newPage != NULL ) self.pdfPage = CGPDFPageRetain( newPage );
+    if( self.pdfPage != NULL ){
+        CGPDFPageRelease( self.pdfPage );
+    }
+    if( newPage != NULL ) {
+        self.pdfPage = CGPDFPageRetain( newPage );
+    }
 }
 
 // Draw the CGPDFPageRef into the layer at the correct scale.
@@ -145,7 +149,7 @@
     CGContextRestoreGState(context);
 }
 
--(void)drawPdfToFile:(NSURL*)fileUrl withAnnotations:(NSArray<UIBezierPath*>*)annotations  {
+-(void)drawPdfToFile:(NSURL*)fileUrl withAnnotations:(NSArray<UIBezierPath*>*)annotations andTextAnnotations:(NSArray<UITextView*>*)textAnnotations {
     NSLog(@"file Url is %@",fileUrl);
     NSString *tempPath = [NSTemporaryDirectory() stringByAppendingString:@"updatedfile.pdf"];
     CGRect pdfRect = CGPDFPageGetBoxRect( self.pdfPage, kCGPDFMediaBox );
@@ -178,7 +182,8 @@
     // draw annotations
 
     [self drawAnnotations:annotations inContext:context];
-        
+    
+    [self drawTextAnnotations:textAnnotations inContext:context];
 
     UIGraphicsEndPDFContext();
     
@@ -210,6 +215,29 @@
 
     
 }
+
+-(void)drawTextAnnotations:(NSArray<UITextView*>*)textAnnotations inContext:(CGContextRef)currentContext {
+    
+//    CGContextTranslateCTM(currentContext, 0.0, self.bounds.size.height);
+//    CGContextScaleCTM(currentContext, 1.0, -1.0);
+    
+    //    CGContextTranslateCTM(currentContext, self.bounds.size.width/2, self.bounds.size.height/2);
+    //    CGContextRotateCTM(currentContext, -90 * M_PI/180.0);
+    //   CGContextTranslateCTM(currentContext, -self.bounds.size.width/2, -self.bounds.size.height/2);
+    
+    
+    CGContextSetLineWidth(currentContext, 1.0);
+    CGContextSetStrokeColorWithColor(currentContext, [UIColor redColor].CGColor);
+    
+    //Draw Paths
+    for (UITextView *textView in textAnnotations) {
+        [textView.text drawWithRect:textView.frame options:NSStringDrawingUsesLineFragmentOrigin attributes:nil context:nil];
+    }
+    
+    
+    
+}
+
 
 
 // Clean up.
