@@ -38,9 +38,7 @@
 }
 
 -(BOOL) selectedStateChanged {
-    if (!self.prevSelection) {
-        return self.selected;
-    }
+   
     return self.prevSelection != self.selected;
 }
 

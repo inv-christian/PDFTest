@@ -346,36 +346,12 @@ static const CGFloat kAnnotationTextFieldHeight = 50.0f;
                 [self.currentAnnotationView setNeedsDisplay];
                 return;
 
-//                CGRect textViewFrame = self.textAnnotationView.frame;
-//                textViewFrame.origin.x = CGRectGetMinX(self.currentAnnotationView.frame) + 10;
-//                textViewFrame.origin.y = CGRectGetMinY(self.currentAnnotationView.frame) + 10;
-////
-//                UITextView* tempText = [[UITextView alloc]initWithFrame:textViewFrame];
-//                tempText.text = self.textAnnotationView.text;
-//                [self.texts addObject:tempText];
-//                [self.textAnnotationView resignFirstResponder];
-//        
-//                [self.currentAnnotationView setHidden:YES];
-//                
              }
           
         }
         
       
         self.currentAnnotationView.frame = CGRectMake(_lastPoint.x, _lastPoint.y, kAnnotationTextFieldWidth, kAnnotationTextFieldHeight) ;
-        
-//        self.currentAnnotationView =  [[AnnotationView alloc]initWithFrame:CGRectMake(_lastPoint.x, _lastPoint.y, kAnnotationTextFieldWidth, kAnnotationTextFieldHeight) ];
-//
-//        self.textAnnotationView  = [[UITextView alloc] initWithFrame:CGRectMake(5, 5, kAnnotationTextFieldWidth-10, kAnnotationTextFieldHeight-10) ];
-// 
-//        self.textAnnotationView .delegate = self;
-//        
-//        [self.currentAnnotationView addSubview:self.textAnnotationView];
-//        self.textAnnotationView.hidden = NO;
-//        
-//        [self addSubview:self.currentAnnotationView];
-        
-     //   [self.textAnnotationView becomeFirstResponder];
         [self.currentAnnotationView setHidden:NO];
         [self.currentAnnotationView setNeedsDisplay];
         

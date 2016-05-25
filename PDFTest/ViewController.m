@@ -103,10 +103,7 @@ static const CGFloat kMaxPdfViewScale = 10.0;
         self.page = CGPDFDocumentGetPage( self.pdf, 1 );
    
         CGPDFPageRetain(self.page);
-        //        CGPDFDictionaryRef pageDict = CGPDFPageGetDictionary(self.page);
-        //        if( self.page != NULL ) {
-        //            CGPDFPageRetain( self.page );
-        //        }
+     
         self.pdfScale = 1.0;
         
         CGRect pdfRect = CGPDFPageGetBoxRect( self.page, kCGPDFMediaBox );
@@ -126,13 +123,20 @@ static const CGFloat kMaxPdfViewScale = 10.0;
         [self loadPdfPageIntoViewFrame:pdfRect];
         
         self.pageControl.numberOfPages = CGPDFDocumentGetNumberOfPages(self.pdf);
-        [self.geomViewModel addObserver:self forKeyPath:@"onGeometryProcessed" options:NSKeyValueObservingOptionNew context:nil];
-        [details loadGeometryElementsWithCompletionHandler:^(NSArray<Element *> *elements) {
-            NSLog(@"Loading geom ");
-            self.overlayView.elements = elements ;
-        }];
-      
-       
+        
+        // kick off geometry loading in BG
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+            [details loadGeometryElementsWithCompletionHandler:^(NSArray<Element *> *elements) {
+                NSLog(@"Loading geom ");
+                [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+
+                self.overlayView.elements = elements ;
+            }];
+
+        });
+        
+
         
         if (self.page != NULL) {
             CGPDFPageRelease(self.page);
